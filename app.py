@@ -16,11 +16,12 @@ def conectar_banco():
     try:
         # Conexão com o banco de dados MySQL
         conexao = mysql.connector.connect(
-            host= "a",         # Host do MySQL (geralmente algo como "localhost" ou "ip_do_servidor")
-            database="nome_do_banco",      # Nome do banco de dados
-            user="seu_usuario",            # Seu usuário MySQL
-            password="sua_senha"           # Sua senha MySQL
+            host= 'br268.hostgator.com.br',         # Host do MySQL (geralmente algo como "localhost" ou "ip_do_servidor")
+            user='welber77_welber',            # Seu usuário MySQL
+            password= '1Ddeprs1#%',      # Sua senha MySQL
+            database= 'welber77_root'     # Nome do banco de dados
         )
+
         if conexao.is_connected():
             print("Conexão bem-sucedida com o banco de dados.")
         return conexao
