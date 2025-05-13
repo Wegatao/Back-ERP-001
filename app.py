@@ -118,16 +118,23 @@ def atualizar():
     dados = request.get_json()
     id_cooperado = dados.get("id")
     novo_status = dados.get("pendencias")
+    data_emissao = dados.get("data_emissao")
     nova_observacao = dados.get("observacao", "")  # Alteração: Valor padrão para observação
-
+    if data_emissao:
+       try:
+         data_emissao = datetime.strptime(data_emissao, '%Y-%m-%d').strftime('%d/%m/%Y')
+        
+       except ValueError:
+         return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use o formato 'YYYY-MM-DD'."})
+           
     if not id_cooperado or not novo_status:
         return jsonify({"sucesso": False, "mensagem": "ID e status são obrigatórios."})
 
     conexao = conectar_banco()
     cursor = conexao.cursor()
     cursor.execute(
-        "UPDATE cooperados SET pendencias = %s, observacao = %s WHERE id = %s",
-        (novo_status, nova_observacao, id_cooperado)
+        "UPDATE cooperados SET  pendencias = %s, data_emissao = %s, observacao = %s WHERE id = %s",
+        (novo_status, data_emissao, nova_observacao, id_cooperado)
     )
     
     conexao.commit()
