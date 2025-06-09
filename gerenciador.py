@@ -1,25 +1,25 @@
-import mysql.connector
-from mysql.connector import Error
-
-# Classe que gerencia a conexão e operações com o banco de dados
-class GerenciadorCooperados:
+       import mysql.connector
+       from mysql.connector import Error
+       
+       # Classe que gerencia a conexão e operações com o banco de dados
+       class GerenciadorCooperados:
        def _init_(self, config):
          self.config = config # Configuração do banco de dados
          
-
-    # Conecta ao banco de dados
-    def conectar(self):
+       
+       # Conecta ao banco de dados
+       def conectar(self):
         try:
             conexao = mysql.connector.connect(**self.config)
-            if conexao.is_connected():
+              if conexao.is_connected():
                 print("Conexão bem-sucedida com o banco de dados.")
-            return conexao
+              return conexao
         except Error as e:
             print(f"Erro ao conectar no MySQL: {e}")
             return None
-
-    # Cria a tabela "cooperados" se ela não existir
-    def criar_tabela_PSS(self):
+       
+       # Cria a tabela "cooperados" se ela não existir
+       def criar_tabela_PSS(self):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
@@ -32,7 +32,7 @@ class GerenciadorCooperados:
             conexao.commit()
             conexao.close()
             
-    def criar_tabela_Pedencia(self):
+       def criar_tabela_Pedencia(self):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
@@ -49,9 +49,9 @@ class GerenciadorCooperados:
             """)
             conexao.commit()
             conexao.close()
-
-    # Cadastra um novo cooperado no banco de dados
-    def cadastrar_cooperado(self, Matricula, nome):
+       
+       # Cadastra um novo cooperado no banco de dados
+       def cadastrar_cooperado(self, Matricula, nome):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
@@ -61,9 +61,9 @@ class GerenciadorCooperados:
             )
             conexao.commit()
             conexao.close()
-
-    # Busca cooperados pelo nome
-    def buscar_cooperados(self, nome):
+       
+       # Busca cooperados pelo nome
+       def buscar_cooperados(self, nome):
         conexao = self.conectar()
         cooperados = []
         if conexao:
@@ -72,9 +72,9 @@ class GerenciadorCooperados:
             cooperados = cursor.fetchall()
             conexao.close()
         return cooperados
-
-    # Atualiza dados de um cooperado
-    def atualizar_cooperado(self, id_cooperado, pendencias, data_emissao, observacao):
+       
+       # Atualiza dados de um cooperado
+       def atualizar_cooperado(self, id_cooperado, pendencias, data_emissao, observacao):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
