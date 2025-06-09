@@ -4,7 +4,7 @@ from mysql.connector import Error
 # Classe que gerencia a conexão e operações com o banco de dados
 class GerenciadorCooperados:
        def _init_(self, config):
-        self.config = config # Configuração do banco de dados
+         self.config = config # Configuração do banco de dados
          
 
     # Conecta ao banco de dados
