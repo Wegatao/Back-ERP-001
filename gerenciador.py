@@ -25,43 +25,51 @@ class GerenciadorCooperados:
             cursor = conexao.cursor()
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS PSS (
-                    Matricula VARCHAR(20) PRYMARY KEY,
+                    Matricula VARCHAR(20) PRIMARY KEY,
                     nome VARCHAR(20) NOT NULL,
                 )
             """)
             conexao.commit()
             conexao.close()
-            
+     
        def criar_tabela_Pedencia(self):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Pedencia (
-                    IdPedencias INT AUTO_INCREMENT PRYMARY KEY,
+                    IdPedencias INT AUTO_INCREMENT PRIMARY KEY,
                     Matricula VARCHAR(20),
                     TipoPendencia VARCHAR(100),
                     StatusPendecia VARCHAR(20),
                     Data DATE,
                     Descricao VARCHAR(100),
                     FOREIGN KEY(Matricula) REFERENCES PSS(Matricula)
-                )
-            """)
+                )""")
             conexao.commit()
             conexao.close()
        
        # Cadastra um novo cooperado no banco de dados
-       def cadastrar_cooperado(self, Matricula, nome):
+       def cadastrar_PSS(self, Matricula, nome):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
             cursor.execute(
-                "INSERT INTO cooperados (Matricula, nome) VALUES (%s, %s)",
-                (Matricula, nome)
+                "INSERT INTO PSS (Matricula, nome) VALUES (%s, %s)", (Matricula, nome)
             )
             conexao.commit()
             conexao.close()
-       
+           
+       def cadastrar_pendencia(self, Matricula, TipoPendencia, Status, Data, Descricao):
+          conexao = self.conectar()
+          if conexao:
+            cursor = conexao.cursor()
+            cursor.execute("INSERT INTO Pedencia (Matricula, TipoPendencia, StatusPendecia, Data, Descricao)VALUES (%s, %s, %s, %s, %s)", 
+            (Matricula, TipoPendencia, Status, Data, Descricao)
+            )
+            conexao.commit()
+            conexao.close()
+                   
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
         conexao = self.conectar()
