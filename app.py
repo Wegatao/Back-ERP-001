@@ -116,6 +116,6 @@ def atualizar():
 
 
 # Inicia a aplicação Flask
-if __name__ == "_main_":
-    port = int(os.environ.get("PORT", 5000))  # Suporte para plataformas como Render
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))  # Suporte para plataformas como Render
+    app.run(host='0.0.0.0', port=port)
