@@ -16,17 +16,22 @@ gerenciador = GerenciadorCooperados(CONFING)
 # ---------- ROTA: Cadastrar Cooperado ----------
 @app.route("/cadastrarPessoa", methods=["POST"])
 def cadastrarPessoa():
-    dados = request.get_json()
-    Matricula = dados.get("Matricula")
-    nome = dados.get("nome")
+    try:
+        dados = request.get_json()
+        nome = dados.get("nome")
+        Matricula = dados.get("Matricula")
+        
+        if not Matricula or not nome:
+            return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
+        
+        gerenciador.criar_tabela_PSS()
+        gerenciador.cadastrar_PSS(Matricula, nome)
 
-    if not Matricula or not nome:
-        return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
-
-    gerenciador.criar_tabela_PSS()
-    gerenciador.cadastrar_cooperado(Matricula, nome)
-
-    return jsonify({"sucesso": True, "mensagem": f"Cooperado {nome} cadastrado com sucesso!"})
+        return jsonify({"sucesso": True, "mensagem": f"Cooperado {nome} cadastrado com sucesso!"})
+    
+    except Exception as e:
+        print("Erro ao cadastrar pessoa:", e)
+        return jsonify({"sucesso": False, "mensagem": f"Erro interno: {str(e)}"}),500
 
 
 # ---------- ROTA: Cadastrar Pendência ----------
@@ -39,9 +44,9 @@ def cadastrarPendencia():
     data = dados.get("data")
     Descricao = dados.get("Descricao")
 
+
     if not Matricula or not TipoPendencia or not Status or not data or not Descricao:
         return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
-
     try:
         data_formatada = datetime.strptime(data, '%Y-%m-%d').strftime('%d/%m/%Y')
     except ValueError:
