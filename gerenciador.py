@@ -11,12 +11,12 @@ class GerenciadorCooperados:
        def conectar(self):
          try:
             conexao = mysql.connector.connect(**self.config)
-              if conexao.is_connected():
+            if conexao.is_connected():
                 print("Conexão bem-sucedida com o banco de dados.")
-              return conexao
+            return conexao
                 except Error as e:
-                  print(f"Erro ao conectar no MySQL: {e}")
-                  return None
+                print(f"Erro ao conectar no MySQL: {e}")
+                return None
        
        # Cria a tabela "cooperados" se ela não existir
        def criar_tabela_PSS(self):
