@@ -3,7 +3,7 @@ from mysql.connector import Error
        
 # Classe que gerencia a conexão e operações com o banco de dados
 class GerenciadorCooperados:
-       def _init_(self, config):
+       def __init__(self, config):
          self.config = config # Configuração do banco de dados
          
        
@@ -25,7 +25,7 @@ class GerenciadorCooperados:
             cursor = conexao.cursor()
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS PSS (
-                    Matricula VACHAR(20) PRYMARY KEY,
+                    Matricula VARCHAR(20) PRYMARY KEY,
                     nome VARCHAR(20) NOT NULL,
                 )
             """)
@@ -37,12 +37,12 @@ class GerenciadorCooperados:
         if conexao:
             cursor = conexao.cursor()
             cursor.execute("""
-                CREATE TABLE IF NOT EXISTS PSS (
-                    IdPedencias INT AUTO_INCREMENT PRIMARY KEY,
+                CREATE TABLE IF NOT EXISTS Pedencia (
+                    IdPedencias INT AUTO_INCREMENT PRYMARY KEY,
                     Matricula VARCHAR(20),
                     TipoPendencia VARCHAR(100),
-                    SatatusPendecia VARCHAR(20),
-                    DataTyme DATE,
+                    StatusPendecia VARCHAR(20),
+                    Data DATE,
                     Descricao VARCHAR(100),
                     FOREIGN KEY(Matricula) REFERENCES PSS(Matricula)
                 )
