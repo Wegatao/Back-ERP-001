@@ -26,7 +26,7 @@ class GerenciadorCooperados:
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS PSS (
                     Matricula VARCHAR(20) PRIMARY KEY,
-                    nome VARCHAR(20) NOT NULL,
+                    nome VARCHAR(20) NOT NULL
                 )
             """)
             conexao.commit()
