@@ -14,7 +14,7 @@ class GerenciadorCooperados:
             if conexao.is_connected():
                 print("Conexão bem-sucedida com o banco de dados.")
                 return conexao
-            except Error as e:
+         except Error as e:
                 print(f"Erro ao conectar no MySQL: {e}")
                 return None
        
