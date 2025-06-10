@@ -1,27 +1,27 @@
-       import mysql.connector
-       from mysql.connector import Error
+import mysql.connector
+from mysql.connector import Error
        
-       # Classe que gerencia a conexão e operações com o banco de dados
-       class GerenciadorCooperados:
+# Classe que gerencia a conexão e operações com o banco de dados
+class GerenciadorCooperados:
        def _init_(self, config):
          self.config = config # Configuração do banco de dados
          
        
        # Conecta ao banco de dados
        def conectar(self):
-        try:
+         try:
             conexao = mysql.connector.connect(**self.config)
               if conexao.is_connected():
                 print("Conexão bem-sucedida com o banco de dados.")
               return conexao
-        except Error as e:
-            print(f"Erro ao conectar no MySQL: {e}")
-            return None
+                except Error as e:
+                  print(f"Erro ao conectar no MySQL: {e}")
+                  return None
        
        # Cria a tabela "cooperados" se ela não existir
        def criar_tabela_PSS(self):
-        conexao = self.conectar()
-        if conexao:
+         conexao = self.conectar()
+         if conexao:
             cursor = conexao.cursor()
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS PSS (
