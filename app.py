@@ -6,7 +6,7 @@ from config import CONFING
 import os
 
 # Inicializa a aplicação Flask
-app = Flask(_name_)
+app = Flask(__name__)
 CORS(app)
 
 # Instancia a classe responsável pelas operações com o banco
