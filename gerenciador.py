@@ -64,7 +64,7 @@ class GerenciadorCooperados:
           conexao = self.conectar()
           if conexao:
             cursor = conexao.cursor()
-            cursor.execute("INSERT INTO Pedencia (Matricula, TipoPendencia, StatusPendecia, Data, Descricao)VALUES (%s, %s, %s, %s, %s)", 
+            cursor.execute("INSERT INTO Pendencias (Matricula, TipoPendencia, StatusPendecia, Data, Descricao)VALUES (%s, %s, %s, %s, %s)", 
             (Matricula, TipoPendencia, Status, Data, Descricao)
             )
             conexao.commit()
