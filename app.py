@@ -42,7 +42,7 @@ def cadastrarPendencia():
     Matricula = dados.get("Matricula")
     TipoPendencia = dados.get("TipoPendencia")
     Status = dados.get("Status")
-    data = dados.get("DataTime")
+    dataEmissão = dados.get("DataTime")
     Descricao = dados.get("Descricao")
     print(dados)
 
@@ -54,7 +54,7 @@ def cadastrarPendencia():
         return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})
 
     gerenciador.criar_tabela_Pendencia()
-    gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status, data_formatada, Descricao)
+    gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status, dataEmissão, Descricao)
 
     return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula}!"})
 
