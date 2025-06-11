@@ -46,7 +46,7 @@ def cadastrarPendencia():
     Descricao = dados.get("Descricao")
 
 
-    if not Matricula or not TipoPendencia or not Status or not data or not Descricao:
+    if not Matricula or not TipoPendencia or not Status or not data:
         return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
     try:
         data_formatada = datetime.strptime(data, '%Y-%m-%d').strftime('%d/%m/%Y')
