@@ -44,7 +44,7 @@ def cadastrarPendencia():
     Status = dados.get("Status")
     data = dados.get("DataTime")
     Descricao = dados.get("Descricao")
-
+    print(dados)
 
     if not Matricula or not TipoPendencia or not Status or not data:
         return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
@@ -97,7 +97,7 @@ def atualizar():
     if not id_cooperado or not pendencias:
         return jsonify({"sucesso": False, "mensagem": "ID e pendências são obrigatórios."})
 
-    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data_emissao, observacao)
+    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data_emissao , observacao)
 
     return jsonify({"sucesso": True, "mensagem": "Status e observação atualizados com sucesso!"})
 
