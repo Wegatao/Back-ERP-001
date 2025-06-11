@@ -14,7 +14,7 @@ gerenciador = GerenciadorCooperados(CONFING)
 
 
 # ---------- ROTA: Cadastrar Cooperado ----------
-@app.route("/cadastrarPessoa", methods=["POST"]);
+@app.route("/cadastrarPessoa", methods=["POST"])
 def cadastrarPessoa():
     try:
         dados = request.get_json()
