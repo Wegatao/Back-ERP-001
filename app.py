@@ -14,7 +14,7 @@ gerenciador = GerenciadorCooperados(CONFING)
 
 
 # ---------- ROTA: Cadastrar Cooperado ----------
-@app.route("/cadastrarPessoa", methods=["POST"])
+@app.route("/cadastrarPessoa", methods=["POST"]);
 def cadastrarPessoa():
     try:
         dados = request.get_json()
@@ -37,15 +37,16 @@ def cadastrarPessoa():
 # ---------- ROTA: Cadastrar Pendência ----------
 @app.route("/cadastrarPendencia", methods=["POST"])
 def cadastrarPendencia():
+    
     dados = request.get_json()
     Matricula = dados.get("Matricula")
     TipoPendencia = dados.get("TipoPendencia")
     Status = dados.get("Status")
-    data = dados.get("data")
+    data = dados.get("DataTime")
     Descricao = dados.get("Descricao")
+    print(dados)
 
-
-    if not Matricula or not TipoPendencia or not Status or not data or not Descricao:
+    if not Matricula or not TipoPendencia or not Status or not data:
         return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
     try:
         data_formatada = datetime.strptime(data, '%Y-%m-%d').strftime('%d/%m/%Y')
