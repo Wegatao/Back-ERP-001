@@ -32,7 +32,7 @@ class GerenciadorCooperados:
             conexao.commit()
             conexao.close()
      
-       def criar_tabela_Pedencia(self):
+       def criar_tabela_Pendencia(self):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
