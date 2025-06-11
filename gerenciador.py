@@ -37,7 +37,7 @@ class GerenciadorCooperados:
         if conexao:
             cursor = conexao.cursor()
             cursor.execute("""
-                CREATE TABLE IF NOT EXISTS Pedencia (
+                CREATE TABLE IF NOT EXISTS Pendencias (
                     IdPedencias INT AUTO_INCREMENT PRIMARY KEY,
                     Matricula VARCHAR(20),
                     TipoPendencia VARCHAR(100),
