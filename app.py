@@ -97,7 +97,7 @@ def atualizar():
     if not id_cooperado or not pendencias:
         return jsonify({"sucesso": False, "mensagem": "ID e pendências são obrigatórios."})
 
-    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data_emissao, observacao)
+    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data, observacao)
 
     return jsonify({"sucesso": True, "mensagem": "Status e observação atualizados com sucesso!"})
 
