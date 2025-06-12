@@ -56,7 +56,7 @@ def cadastrarPendencia():
     gerenciador.criar_tabela_Pendencia()
     gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status, data_formatada, Descricao)
 
-    return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula}!"})
+    return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula} {data_formatada}!"})
 
 
 # ---------- ROTA: Buscar Cooperados ----------
@@ -97,7 +97,7 @@ def atualizar():
     if not id_cooperado or not pendencias:
         return jsonify({"sucesso": False, "mensagem": "ID e pendências são obrigatórios."})
 
-    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data_emissao , observacao)
+    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data_emissao, observacao)
 
     return jsonify({"sucesso": True, "mensagem": "Status e observação atualizados com sucesso!"})
 
