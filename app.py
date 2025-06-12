@@ -56,8 +56,7 @@ def cadastrarPendencia():
     gerenciador.criar_tabela_Pendencia()
     gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status, data_formatada, Descricao)
 
-    return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula}!"})
-
+    return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula} {data_formatada}!"})
 
 # ---------- ROTA: Buscar Cooperados ----------
 @app.route("/buscar", methods=["POST"])
