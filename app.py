@@ -46,7 +46,7 @@ def cadastrarPendencia():
     Descricao = dados.get("Descricao")
     print(dados)
 
-    if not Matricula or not TipoPendencia or not Status or not data:
+    if not Matricula or not TipoPendencia or not Status or not data_emissao:
         return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
         
     if data_emissao:
