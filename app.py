@@ -41,7 +41,7 @@ def cadastrarPendencia():
     dados = request.get_json()
     Matricula = dados.get("Matricula")
     TipoPendencia = dados.get("TipoPendencia")
-    StatusPendecia = dados.get("Status")
+    StatusPendecia = dados.get("StatusPendecia")
     Data = dados.get("Data")
     Descricao = dados.get("Descricao")
     print(dados)
