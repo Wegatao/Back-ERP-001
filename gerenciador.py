@@ -42,7 +42,7 @@ class GerenciadorCooperados:
                     Matricula VARCHAR(20),
                     TipoPendencia VARCHAR(100),
                     StatusPendecia VARCHAR(20),
-                    Data VARCHAR(11),
+                    Data date,
                     Descricao VARCHAR(100),
                     FOREIGN KEY(Matricula) REFERENCES PSS(Matricula)
                 )""")
