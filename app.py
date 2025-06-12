@@ -49,11 +49,11 @@ def cadastrarPendencia():
     if not Matricula or not TipoPendencia or not StatusPendecia or not Data:
         return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
         
-    if Data:
+    '''if Data:
         try:
             Data = datetime.strptime(Data, '%Y-%m-%d').strftime('%d/%m/%Y')
         except ValueError:
-            return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})
+            return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})'''
 
     gerenciador.criar_tabela_Pendencia()
     gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, StatusPendecia,Data, Descricao)
