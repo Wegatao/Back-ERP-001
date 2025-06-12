@@ -42,7 +42,7 @@ def cadastrarPendencia():
     Matricula = dados.get("Matricula")
     TipoPendencia = dados.get("TipoPendencia")
     Status = dados.get("Status")
-    dataEmissão = dados.get("DataTime")
+    data = dados.get("DataTime")
     Descricao = dados.get("Descricao")
     print(dados)
 
@@ -54,7 +54,7 @@ def cadastrarPendencia():
         return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})
 
     gerenciador.criar_tabela_Pendencia()
-    gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status, dataEmissão, Descricao)
+    gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status, data_formatada, Descricao)
 
     return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula}!"})
 
@@ -97,7 +97,7 @@ def atualizar():
     if not id_cooperado or not pendencias:
         return jsonify({"sucesso": False, "mensagem": "ID e pendências são obrigatórios."})
 
-    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data, observacao)
+    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data_emissao, observacao)
 
     return jsonify({"sucesso": True, "mensagem": "Status e observação atualizados com sucesso!"})
 
