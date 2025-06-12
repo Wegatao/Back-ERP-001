@@ -42,7 +42,7 @@ class GerenciadorCooperados:
                     Matricula VARCHAR(20),
                     TipoPendencia VARCHAR(100),
                     StatusPendecia VARCHAR(20),
-                    Data DATE,
+                    Data date,
                     Descricao VARCHAR(100),
                     FOREIGN KEY(Matricula) REFERENCES PSS(Matricula)
                 )""")
@@ -60,12 +60,12 @@ class GerenciadorCooperados:
             conexao.commit()
             conexao.close()
            
-       def cadastrar_pendencia(self, Matricula, TipoPendencia, Status,data_emissao, Descricao):
+       def cadastrar_pendencia(self, Matricula, TipoPendencia, StatusPendecia,Data, Descricao):
           conexao = self.conectar()
           if conexao:
             cursor = conexao.cursor()
             cursor.execute("INSERT INTO Pendencias (Matricula, TipoPendencia, StatusPendecia,Data, Descricao)VALUES (%s, %s, %s, %s, %s)", 
-            (Matricula,TipoPendencia, Status,data_emissao, Descricao)
+            (Matricula,TipoPendencia, StatusPendecia,Data, Descricao)
             )
             conexao.commit()
             conexao.close()
