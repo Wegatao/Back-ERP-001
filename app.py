@@ -42,21 +42,23 @@ def cadastrarPendencia():
     Matricula = dados.get("Matricula")
     TipoPendencia = dados.get("TipoPendencia")
     Status = dados.get("Status")
-    data = dados.get("DataTime")
+    data_emissao = dados.get("DataTime")
     Descricao = dados.get("Descricao")
     print(dados)
 
     if not Matricula or not TipoPendencia or not Status or not data:
         return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
-    try:
-        data_formatada = datetime.strptime(data, '%Y-%m-%d').strftime('%d/%m/%Y')
-    except ValueError:
-        return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})
+        
+    if data_emissao:
+        try:
+            data_emissao = datetime.strptime(data_emissao, '%Y-%m-%d').strftime('%d/%m/%Y')
+        except ValueError:
+            return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})
 
     gerenciador.criar_tabela_Pendencia()
-    gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status, data_formatada, Descricao)
+    gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, Status,data_emissao, Descricao)
 
-    return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula} {data_formatada}!"})
+    return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula} {data_emissao}!"})
 
 # ---------- ROTA: Buscar Cooperados ----------
 @app.route("/buscar", methods=["POST"])
