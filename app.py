@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from datetime import datetime
 from flask_cors import CORS
+
 from gerenciador import GerenciadorCooperados
-from CadastrarPendencia import CadastrarPendencia
+from CadastrarPendencia import CadastrarPendenciaMethod
+from CadastrarPessoa import CadastrarPessoa
 from config import CONFING
 import os
 
@@ -17,32 +19,27 @@ gerenciador = GerenciadorCooperados(CONFING)
 # ---------- ROTA: Cadastrar Cooperado ----------
 @app.route("/cadastrarPessoa", methods=["POST"])
 def cadastrarPessoa():
-    try:
-        dados = request.get_json()
-        nome = dados.get("nome")
-        Matricula = dados.get("Matricula")
-        
-        if not Matricula or not nome:
-            return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
-        
-        gerenciador.criar_tabela_PSS()
-        gerenciador.cadastrar_PSS(Matricula, nome)
-
-        return jsonify({"sucesso": True, "mensagem": f"Cooperado {nome} cadastrado com sucesso!"})
     
-    except Exception as e:
-        print("Erro ao cadastrar pessoa:", e)
-        return jsonify({"sucesso": False, "mensagem": f"Erro interno: {str(e)}"}),500
-
+    dados = request.get_json()
+    CadastrarPessoa_obj = CadastrarPessoa(dados)
+    Resultado = CadastrarPessoa_obj.CadastraPessoaMethod()
+    if Resultado.get("sucesso"):
+        return jsonify(Resultado) 
+    else:
+        return jsonify(Resultado), 400 
+     
 
 # ---------- ROTA: Cadastrar Pendência ----------
 @app.route("/cadastrarPendencia", methods=["POST"])
 def cadastrarPendencia():
-    
     dados = request.get_json()
-    CadastrarPendencia_obj = CadastrarPendencia(dados)
+    CadastrarPendencia_obj = CadastrarPendenciaMethod(dados)
     Resultado = CadastrarPendencia_obj.cadastrar_pendencia()
-    return jsonify(Resultado)
+    if Resultado.get("sucesso"):
+        return jsonify(Resultado) 
+    else:
+        return jsonify(Resultado), 400 
+
 
 # ---------- ROTA: Buscar Cooperados ----------
 @app.route("/buscar", methods=["POST"])
