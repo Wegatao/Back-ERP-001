@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from datetime import datetime
 from flask_cors import CORS
 from gerenciador import GerenciadorCooperados
+from CadastrarPendencia import CadastrarPendencia
 from config import CONFING
 import os
 
@@ -39,26 +40,9 @@ def cadastrarPessoa():
 def cadastrarPendencia():
     
     dados = request.get_json()
-    Matricula = dados.get("Matricula")
-    TipoPendencia = dados.get("TipoPendencia")
-    StatusPendecia = dados.get("StatusPendecia")
-    Data = dados.get("Data")
-    Descricao = dados.get("Descricao")
-    print(dados)
-
-    if not Matricula or not TipoPendencia or not StatusPendecia or not Data:
-        return jsonify({"sucesso": False, "mensagem": "Todos os campos obrigatórios devem ser preenchidos."})
-        
-    '''if Data:
-        try:
-            Data = datetime.strptime(Data, '%Y-%m-%d').strftime('%d/%m/%Y')
-        except ValueError:
-            return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})'''
-
-    gerenciador.criar_tabela_Pendencia()
-    gerenciador.cadastrar_pendencia(Matricula, TipoPendencia, StatusPendecia,Data, Descricao)
-
-    return jsonify({"sucesso": True, "mensagem": f"Pendência cadastrada com sucesso para a matrícula {Matricula} {Data}!"})
+    CadastrarPendencia_obj = CadastrarPendencia(dados)
+    Resultado = CadastrarPendencia_obj.cadastrar_pendencia()
+    return jsonify(Resultado)
 
 # ---------- ROTA: Buscar Cooperados ----------
 @app.route("/buscar", methods=["POST"])
