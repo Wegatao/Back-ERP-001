@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_cors import CORS
 
 from gerenciador import GerenciadorCooperados
-from CadastrarPendencia import CadastrarPendenciaMethod
+from CadastrarPendencia import  CadastrarPendencia
 from CadastrarPessoa import CadastrarPessoa
 from config import CONFING
 import os
@@ -33,8 +33,8 @@ def cadastrarPessoa():
 @app.route("/cadastrarPendencia", methods=["POST"])
 def cadastrarPendencia():
     dados = request.get_json()
-    CadastrarPendencia_obj = CadastrarPendenciaMethod(dados)
-    Resultado = CadastrarPendencia_obj.cadastrar_pendencia()
+    CadastrarPendencia_obj =  CadastrarPendencia(dados)
+    Resultado = CadastrarPendencia_obj.CadastrarPendenciaMethod()
     if Resultado.get("sucesso"):
         return jsonify(Resultado) 
     else:
