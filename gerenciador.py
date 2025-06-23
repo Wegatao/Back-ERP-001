@@ -76,7 +76,17 @@ class GerenciadorCooperados:
         cooperados = []
         if conexao:
             cursor = conexao.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM cooperados WHERE nome LIKE %s", (f"%{nome}%",))
+            cursor.execute("""
+                        SELECT
+                           p.Matricula,
+                           p.nome,
+                           c.pendencias,
+                           c.data_emissao,
+                           c.observacao
+                        FROM PSS P
+                        LEFT JOIN Pendencias pe ON P.Matricula = pe.Matricula
+                        WHERE p.nome LIKE %s""", ('%' + nome + '%',))
+            cursor.fetchall()
             cooperados = cursor.fetchall()
             conexao.close()
         return cooperados
