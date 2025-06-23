@@ -78,14 +78,11 @@ class GerenciadorCooperados:
             cursor = conexao.cursor(dictionary=True)
             cursor.execute("""
                         SELECT
-                           p.Matricula,
-                           p.nome,
-                           c.pendencias,
-                           c.data_emissao,
-                           c.observacao
-                        FROM PSS P
-                        LEFT JOIN Pendencias pe ON P.Matricula = pe.Matricula
-                        WHERE p.nome LIKE %s""", ('%' + nome + '%',))
+                           p.Matricula, p.nome, pe.TipoPendencia, pe.StatusPendencia, pe.Data, pe.Descricao
+                        FROM PSS p
+                           LEFT JOIN Pendencia pe ON p.Matricula = pe.Matricula
+                        WHERE p.nome LIKE %s
+                        """, (f"%{nome}%",))
             cursor.fetchall()
             cooperados = cursor.fetchall()
             conexao.close()
