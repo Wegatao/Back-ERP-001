@@ -72,30 +72,30 @@ class GerenciadorCooperados:
                    
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
-        conexao = self.conectar()
-        cooperados = []
-        if conexao:
-            cursor = conexao.cursor(dictionary=True)
+            conexao = self.conectar()
+            cooperados = []
+            if conexao:
+              cursor = conexao.cursor(dictionary=True)
             cursor.execute("""
-                        SELECT
-                           p.Matricula, p.nome, pe.TipoPendencia, pe.StatusPendencia, pe.Data, pe.Descricao
-                        FROM PSS p
-                           LEFT JOIN Pendencia pe ON p.Matricula = pe.Matricula
-                        WHERE p.nome LIKE %s
-                        """, (f"%{nome}%",))
-            cursor.fetchall()
+             SELECT
+                    p.Matricula, p.nome, pe.TipoPendencia, pe.StatusPendecia, pe.Data, pe.Descricao
+             FROM PSS p
+              LEFT JOIN Pendencias pe ON p.Matricula = pe.Matricula
+              WHERE p.nome LIKE %s
+                 """, (f"%{nome}%",))
             cooperados = cursor.fetchall()
             conexao.close()
-        return cooperados
+            return cooperados
        
        # Atualiza dados de um cooperado
-       def atualizar_cooperado(self, id_cooperado, pendencias, data_emissao, observacao):
-        conexao = self.conectar()
-        if conexao:
+       def atualizar_pendencia(self, matricula, status, descricao):
+         conexao = self.conectar()
+         if conexao:
             cursor = conexao.cursor()
-            cursor.execute(
-                "UPDATE cooperados SET pendencias = %s, data_emissao = %s, observacao = %s WHERE id = %s",
-                (pendencias, data_emissao, observacao, id_cooperado)
-            )
+            cursor.execute("""
+                UPDATE Pendencias
+                SET StatusPendencia = %s, Descricao = %s
+                WHERE Matricula = %s
+            """, (status, descricao, matricula))
             conexao.commit()
             conexao.close()
