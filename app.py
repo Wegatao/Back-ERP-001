@@ -50,11 +50,12 @@ def buscar():
 
     cooperados = [
         {
-            "id": row["id"],
+            "matricula": row["Matricula"],
             "nome": row["nome"],
-            "pendencias": row["pendencias"],
-            "data_emissao": row["data_emissao"],
-            "observacao": row["observacao"]
+            "tipo_pendencia": row["TipoPendencia"],
+            "status_pendencia": row["StatusPendecia"],
+            "data": row["Data"],
+            "descricao": row["Descricao"]
         }
         for row in resultado
     ]
@@ -65,23 +66,16 @@ def buscar():
 @app.route("/atualizar", methods=["PUT"])
 def atualizar():
     dados = request.get_json()
-    id_cooperado = dados.get("id")
-    pendencias = dados.get("pendencias")
-    data_emissao = dados.get("data_emissao")
-    observacao = dados.get("observacao", "")
+    matricula = dados.get("matricula")
+    status = dados.get("status_pendencia")
+    descricao = dados.get("descricao", "")
 
-    if data_emissao:
-        try:
-            data_emissao = datetime.strptime(data_emissao, '%Y-%m-%d').strftime('%d/%m/%Y')
-        except ValueError:
-            return jsonify({"sucesso": False, "mensagem": "Formato de data inválido. Use 'YYYY-MM-DD'."})
+    if not matricula or not status:
+        return jsonify({"sucesso": False, "mensagem": "Campos obrigatórios não informados."})
 
-    if not id_cooperado or not pendencias:
-        return jsonify({"sucesso": False, "mensagem": "ID e pendências são obrigatórios."})
+    gerenciador.atualizar_pendencia(matricula, status, descricao)
 
-    gerenciador.atualizar_cooperado(id_cooperado, pendencias, data_emissao, observacao)
-
-    return jsonify({"sucesso": True, "mensagem": "Status e observação atualizados com sucesso!"})
+    return jsonify({"sucesso": True, "mensagem": "Pendência atualizada com sucesso"})
 
 
 # ---------- INICIAR APLICAÇÃO ----------
