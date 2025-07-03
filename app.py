@@ -8,7 +8,7 @@ from config import CONFING
 import os
 
 app = Flask(__name__)
-CORS(app, origins=["http://127.0.0.1:5500"])  # Ajuste de CORS para ambiente local
+CORS(app)  # Ajuste de CORS para ambiente local
 
 gerenciador = GerenciadorCooperados(CONFING)
 
