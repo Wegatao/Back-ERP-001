@@ -28,8 +28,8 @@ def cadastrarPendencia():
 @app.route("/buscar", methods=["POST"])
 def buscar():
     dados = request.get_json()
-    nome = dados.get("nome")
-    resultado = gerenciador.buscar_cooperados(nome)
+    nome = dados.get("nome", "")  # ✅ Pega apenas o campo "nome" do dicionário
+    resultado = gerenciador.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
 
     cooperados = [
         {
