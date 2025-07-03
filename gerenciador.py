@@ -72,20 +72,33 @@ class GerenciadorCooperados:
                    
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
-            conexao = self.conectar()
-            cooperados = []
-            if conexao:
-              cursor = conexao.cursor(dictionary=True)
-            cursor.execute("""
-             SELECT
-                    p.Matricula, p.nome, pe.TipoPendencia, pe.StatusPendecia, pe.Data, pe.Descricao
-             FROM PSS p
-              LEFT JOIN Pendencias pe ON p.Matricula = pe.Matricula
-              WHERE p.nome LIKE %s
-                 """, (f"%{nome}%",))
-            cooperados = cursor.fetchall()
-            conexao.close()
-            return cooperados
+        cooperados = []
+        conexao = self.conectar()
+
+        if not conexao:
+         return cooperados
+
+        try:
+          cursor = conexao.cursor(dictionary=True)
+          cursor.execute("""
+              SELECT
+                p.Matricula,
+                p.nome,
+                pe.TipoPendencia,
+                pe.StatusPendecia,
+                pe.Data,
+                pe.Descricao
+            FROM PSS p
+            LEFT JOIN Pendencias pe ON p.Matricula = pe.Matricula
+            WHERE p.nome LIKE %s
+           """, (f"%{nome}%",))
+          cooperados = cursor.fetchall()
+        except Error as e:
+          print(f"Erro ao buscar cooperados: {e}")
+        finally:
+         conexao.close()
+         return cooperados
+
        
        # Atualiza dados de um cooperado
        def atualizar_pendencia(self, matricula, status, descricao):
