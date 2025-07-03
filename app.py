@@ -35,7 +35,7 @@ def buscar():
         {
             "id": row["Matricula"],
             "nome": row["nome"],
-            "TipoPedencia": row["TipoPendencia"],  # Padronize aqui
+            "TipoPendencia": row["TipoPendencia"],  # corrigido com "n"
             "StatusPendecia": row["StatusPendecia"],
             "Descricao": row["Descricao"],  # Corrigido
             "data_emissao": row["Data"]
