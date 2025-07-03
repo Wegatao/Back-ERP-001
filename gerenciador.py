@@ -96,8 +96,9 @@ class GerenciadorCooperados:
         except Error as e:
           print(f"Erro ao buscar cooperados: {e}")
         finally:
-         conexao.close()
-         return cooperados
+            if conexao.is_connected():  # ✅ garante que a conexão existe antes de fechar
+              conexao.close()
+        return cooperados
 
        
        # Atualiza dados de um cooperado
