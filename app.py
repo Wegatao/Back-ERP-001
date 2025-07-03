@@ -25,7 +25,6 @@ def cadastrarPendencia():
     return jsonify(resultado), 200 if resultado.get("sucesso") else 400
 
 
-
 @app.route("/buscar", methods=["POST"])
 def buscar():
     dados = request.get_json()
@@ -36,14 +35,15 @@ def buscar():
         {
             "id": row["Matricula"],
             "nome": row["nome"],
-            "TipoPedencia": row["TipoPendencia"],
+            "TipoPedencia": row["TipoPendencia"],  # Padronize aqui
             "StatusPendecia": row["StatusPendecia"],
-            "Descriçao": row["Descricao"],
+            "Descricao": row["Descricao"],  # Corrigido
             "data_emissao": row["Data"]
         }
         for row in resultado
     ]
     return jsonify({"cooperados": cooperados})
+
 
 
 @app.route("/atualizar", methods=["PUT"])
