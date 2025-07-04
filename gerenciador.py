@@ -92,7 +92,22 @@ class GerenciadorCooperados:
             LEFT JOIN Pendencias pe ON p.Matricula = pe.Matricula
             WHERE p.nome LIKE %s
            """, (f"%{nome}%",))
-          cooperados = cursor.fetchall()
+          resultado = cursor.fetchall()
+          if resultado:
+            cooperados = [
+                {
+                    "Matricula": row["Matricula"],
+                    "nome": row["nome"],
+                    "TipoPendencia": row["TipoPendencia"],
+                    "StatusPendecia": row["StatusPendecia"],
+                    "Data": row["Data"],
+                    "Descricao": row["Descricao"]
+                }
+                for row in resultado
+            ]
+          else:
+            print("Nenhum cooperado encontrado.")
+            
         except Error as e:
           print(f"Erro ao buscar cooperados: {e}")
         finally:
