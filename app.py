@@ -8,7 +8,7 @@ from config import CONFING
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https:*"}})
+CORS(app)
 
 gerenciador = GerenciadorCooperados(CONFING)
 
