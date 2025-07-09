@@ -12,6 +12,10 @@ CORS(app)
 
 gerenciador = GerenciadorCooperados(CONFING)
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"mensagem": "Backend do ERP está online!"})
+    
 @app.route("/cadastrarPessoa", methods=["POST"])
 def cadastrarPessoa():
     dados = request.get_json()
@@ -32,14 +36,14 @@ def buscar():
     resultado = gerenciador.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
 
     cooperados = [
-        {
-            "id": row["Matricula"],
-            "nome": row["nome"],
-            "TipoPendencia": row["TipoPendencia"],  # corrigido com "n"
-            "StatusPendecia": row["StatusPendecia"],
-            "Descricao": row["Descricao"],  # Corrigido
-            "data_emissao": row["Data"]
-        }
+     {
+        "id": row["Matricula"],
+        "nome": row["nome"],
+        "pendencias": row["TipoPendencia"],     # renomeado
+        "status": row["StatusPendecia"],
+        "observacao": row["Descricao"],         # renomeado
+        "data_emissao": row["Data"]             # renomeado
+     }
         for row in resultado
     ]
     return jsonify({"cooperados": cooperados})
