@@ -76,7 +76,7 @@ class GerenciadorCooperados:
           data = i
           data_obj = datetime.strptime(data, "%d/%m/%Y")
           data_invertida = data_obj.strftime("%Y-%m-%d")
-          return {"sucesso": True, "data_invertida": data_invertida}
+          return {"data_invertida": data_invertida}
                                       
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
