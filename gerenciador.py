@@ -72,10 +72,7 @@ class GerenciadorCooperados:
             )
             conexao.commit()
             conexao.close()
-          return{
-             "sucesso": True,
-             "mensagem": "Pendência cadastrada com sucesso"
-            }
+            return {"sucesso": True, "mensagem": "Pendência cadastrada com sucesso"}
             
        def inverterData(i):
           data = i
