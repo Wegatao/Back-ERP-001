@@ -74,8 +74,8 @@ class GerenciadorCooperados:
             conexao.close()
             return {"sucesso": True, "mensagem": "Pendência cadastrada com sucesso"}
             
-       def inverterData(i):
-          data = i
+       def inverterData(self,i):
+          data = sei
           data_obj = datetime.strptime(data, "%d/%m/%Y")
           data_invertida = data_obj.strftime("%Y-%m-%d")
           return data_invertida
