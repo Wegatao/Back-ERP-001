@@ -64,6 +64,17 @@ def atualizar():
     gerenciador.atualizar_pendencia(matricula, status, descricao, data)
     return jsonify({"sucesso": True, "mensagem": "Pendência atualizada com sucesso"})
 
+
+#Essa função ainda não estpa criada.
+@app.route("/deletar", methods=["DELETE"]) 
+def deletar():
+    dados = request.get_json()
+    matricula = dados.get("id")
+    if not matricula:
+        return jsonify({"sucesso": False, "mensagem": "Matricula não informada."})
+    gerenciador.deletar_pendencia(matricula) 
+    return jsonify({"sucesso": True, "mensagem": "Pendência deletada com sucesso"})
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
