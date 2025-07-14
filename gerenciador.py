@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+from datetime import datetime
        
 # Classe que gerencia a conexão e operações com o banco de dados
 class GerenciadorCooperados:
@@ -62,14 +63,21 @@ class GerenciadorCooperados:
            
        def cadastrar_pendencia(self, Matricula, TipoPendencia, StatusPendecia,Data, Descricao):
           conexao = self.conectar()
+          # Inverte a data para o formato YYYY-MM-DD
+          Data = self.inverterData(Data)["data_invertida"]
           if conexao:
             cursor = conexao.cursor()
             cursor.execute("INSERT INTO Pendencias (Matricula, TipoPendencia, StatusPendecia,Data, Descricao)VALUES (%s, %s, %s, %s, %s)", 
-            (Matricula,TipoPendencia, StatusPendecia,Data, Descricao)
+            (Matricula,TipoPendencia, StatusPendecia, Data, Descricao)
             )
             conexao.commit()
             conexao.close()
-                   
+       def inverterData(i):
+          data = i
+          data_obj = datetime.strptime(data, "%d/%m/%Y")
+          data_invertida = data_obj.strftime("%Y-%m-%d")
+          return {"sucesso": True, "data_invertida": data_invertida}
+                                      
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
         cooperados = []
