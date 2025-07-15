@@ -81,10 +81,10 @@ class GerenciadorCooperados:
               conexao.close()
             
        def inverterData(self,i):
-          data =  i
-          dia, mes, ano = data.split('/')
-          data = f'''{ano}/{mes}/{dia}'''
-          return data
+          data_obj = datetime.strptime(i, "%d/%m/%Y")  # Converte string em data
+          data_convertida = data_obj.strftime("%Y-%m-%d")  # Converte data em string no formato certo
+          return data_convertida
+          
                                       
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
