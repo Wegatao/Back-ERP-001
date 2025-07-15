@@ -66,19 +66,25 @@ class GerenciadorCooperados:
           # Inverte a data para o formato YYYY-MM-DD
           Data = self.inverterData(Data)
           if conexao:
-            cursor = conexao.cursor()
-            cursor.execute("INSERT INTO Pendencias (Matricula, TipoPendencia, StatusPendecia,Data, Descricao)VALUES (%s, %s, %s, %s, %s)", 
-            (Matricula,TipoPendencia, StatusPendecia, Data, Descricao)
-            )
-            conexao.commit()
-            conexao.close()
-            return {"sucesso": True, "mensagem": "Pendência cadastrada com sucesso"}
+            try:
+              cursor = conexao.cursor()
+              cursor.execute("""
+                INSERT INTO Pendencias (Matricula, TipoPendencia, StatusPendecia, Data, Descricao)
+                VALUES (%s, %s, %s, %s, %s)
+                """, (Matricula, TipoPendencia, StatusPendecia, Data, Descricao))
+              conexao.commit()
+              return {"sucesso": True, "mensagem": "Pendência cadastrada com sucesso"}
+            except Error as e:
+              print(f"Erro ao cadastrar pendência: {e}")
+              return {"sucesso": False, "mensagem": f"Erro: {e}"}
+            finally:
+              conexao.close()
             
        def inverterData(self,i):
-          data = sei
-          data_obj = datetime.strptime(data, "%d/%m/%Y")
-          data_invertida = data_obj.strftime("%Y-%m-%d")
-          return data_invertida
+          data =  i
+          dia, mes, ano = data.split('/')
+          data = f'''{ano}/{mes}/{dia}'''
+          return data
                                       
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
