@@ -105,7 +105,7 @@ class GerenciadorCooperados:
                 pe.Data,
                 pe.Descricao
             FROM PSS p
-            LEFT JOIN Pendencias pe ON p.Matricula = pe.Matricula
+            INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
             WHERE p.nome LIKE %s
            """, (f"%{nome}%",))
           resultado = cursor.fetchall()
