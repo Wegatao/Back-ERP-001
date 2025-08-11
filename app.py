@@ -54,7 +54,7 @@ def buscar():
 def atualizar():
     dados = request.get_json()
     matricula = dados.get("id")  # Matricula usada como ID
-    status = dados.get("pendencias")
+    status = dados.get("status")
 
     if not matricula or not status:
         return jsonify({"sucesso": False, "mensagem": "Campos obrigatórios não informados."})
