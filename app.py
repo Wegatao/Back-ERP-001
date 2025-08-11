@@ -55,13 +55,11 @@ def atualizar():
     dados = request.get_json()
     matricula = dados.get("id")  # Matricula usada como ID
     status = dados.get("pendencias")
-    descricao = dados.get("observacao", "")
-    data = dados.get("data_emissao")
 
     if not matricula or not status:
         return jsonify({"sucesso": False, "mensagem": "Campos obrigatórios não informados."})
 
-    gerenciador.atualizar_pendencia(matricula, status, descricao, data)
+    gerenciador.atualizar_pendencia(matricula, status)
     return jsonify({"sucesso": True, "mensagem": "Pendência atualizada com sucesso"})
 
 
