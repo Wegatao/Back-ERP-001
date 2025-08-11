@@ -97,17 +97,16 @@ class GerenciadorCooperados:
         try:
           cursor = conexao.cursor(dictionary=True)
           cursor.execute("""
-              SELECT
-                p.Matricula,
-                p.nome,
-                pe.TipoPendencia,
-                pe.StatusPendecia,
-                pe.Data,
-                pe.Descricao
+              SELECT 
+                P.Matricula,
+                P.nome,
+                Pendencias.TipoPendencia,
+                Pendencias.StatusPendecia,
+                Pendencias.Data,
+                Pendencias.Descricao
             FROM PSS p
-            LEFT JOIN Pendencias pe ON p.Matricula = pe.Matricula
-            WHERE p.nome LIKE %s
-           """, (f"%{nome}%",))
+            INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
+            WHERE p.nome LIKE %s """, (f"%{nome}%",))
           resultado = cursor.fetchall()
           if resultado:
             cooperados = [
@@ -133,7 +132,7 @@ class GerenciadorCooperados:
 
        
        # Atualiza dados de um cooperado
-       def atualizar_pendencia(self, matricula, status, descricao):
+       def atualizar_pendencia(self, matricula, status):
          conexao = self.conectar()
          if conexao:
             cursor = conexao.cursor()
@@ -141,6 +140,6 @@ class GerenciadorCooperados:
                 UPDATE Pendencias
                 SET StatusPendencia = %s, Descricao = %s
                 WHERE Matricula = %s
-            """, (status, descricao, matricula))
+            """, (status, matricula))
             conexao.commit()
             conexao.close()
