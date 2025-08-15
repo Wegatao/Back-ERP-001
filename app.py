@@ -40,7 +40,7 @@ def buscar():
         "id": row["Matricula"],
         "nome": row["nome"],
         "pendencias": row["TipoPendencia"],     # renomeado
-        "status": row["StatusPendecia"],
+        "StatusPedencia": row["StatusPendecia"],
         "observacao": row["Descricao"],         # renomeado
         "data_emissao": row["Data"]             # renomeado
      }
