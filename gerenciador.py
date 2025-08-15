@@ -98,15 +98,16 @@ class GerenciadorCooperados:
           cursor = conexao.cursor(dictionary=True)
           cursor.execute("""
               SELECT 
-                P.Matricula,
-                P.nome,
-                Pendencias.TipoPendencia,
-                Pendencias.StatusPendecia,
-                Pendencias.Data,
-                Pendencias.Descricao
-            FROM PSS p
-            INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
-            WHERE p.nome LIKE %s """, (f"%{nome}%",))
+              p.Matricula,
+              p.nome,
+              pe.TipoPendencia,
+              pe.StatusPendecia,
+              pe.Data,
+              pe.Descricao
+              FROM PSS p
+              INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
+              WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
+          
           resultado = cursor.fetchall()
           if resultado:
             cooperados = [
