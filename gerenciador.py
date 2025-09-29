@@ -142,7 +142,7 @@ class GerenciadorCooperados:
                 cursor = conexao.cursor()
                 cursor.execute("""
                   UPDATE Pendencias 
-                   SET StatusPedencia = %s, TipoPendencia = %s
+                   SET StatusPendecia = %s, TipoPendencia = %s
                    WHERE IdPedencias = %s           
                   """, (PessoaAutorizada, AssinaturaCooperado, IdPendencia))
 
