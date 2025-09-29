@@ -143,10 +143,9 @@ class GerenciadorCooperados:
               try:
                 cursor = conexao.cursor()
                 cursor.execute("""
-                  UPDATE Pendencias
-                  SET StatusPendecia = %s,
-                      TipoPendencia = %s
-                  WHERE IdPendencia = %s
+                  UPDATE Pendencias 
+                   SET StatusPendecia = %s, TipoPendencia = %s
+                   WHERE IdPendencia = %s           
                   """, (PessoaAutorizada, AssinaturaCooperado, IdPendencia))
 
                 conexao.commit()  # ✅ commit vem antes do close
