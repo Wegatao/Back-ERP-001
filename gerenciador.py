@@ -134,18 +134,25 @@ class GerenciadorCooperados:
               conexao.close()
         return cooperados
 
-
        # Atualiza dados de um cooperado
        def atualizar_pendencia(self, IdPendencia, PessoaAutorizada, AssinaturaCooperado):
-          conexao = self.conectar()
-          cursor = conexao.cursor()
-          cursor.execute("""
+            conexao = self.conectar()
+
+            if conexao:
+              try:
+                cursor = conexao.cursor()
+                cursor.execute("""
                   UPDATE Pendencias 
                    SET StatusPendecia = %s, TipoPendencia = %s
                    WHERE IdPendencia = %s           
-            """, (PessoaAutorizada, AssinaturaCooperado, IdPendencia))
+                  """, (PessoaAutorizada, AssinaturaCooperado, IdPendencia))
 
-          conexao.commit()  # ✅ commit vem antes do close
-          conexao.close()
-          
-                  
+                conexao.commit()  # ✅ commit vem antes do close
+                print("Pendência atualizada com sucesso!")
+
+              except Error as e:
+                print(f"Erro ao atualizar pendência: {e}")
+
+              finally:
+                if conexao.is_connected():
+                  conexao.close()
