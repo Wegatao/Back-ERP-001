@@ -100,6 +100,7 @@ class GerenciadorCooperados:
               SELECT 
               p.Matricula,
               p.nome,
+              pe.IdPedencias,
               pe.TipoPendencia,
               pe.StatusPendecia,
               pe.Data,
