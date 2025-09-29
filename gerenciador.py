@@ -110,6 +110,7 @@ class GerenciadorCooperados:
               WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
           
           resultado = cursor.fetchall()
+
           if resultado:
             cooperados = [
                 {
@@ -135,15 +136,25 @@ class GerenciadorCooperados:
 
        
        # Atualiza dados de um cooperado
-       def atualizar_pendencia(self, IdPendencia, PessoaAutorizada, AssinaturaCooperado):
-         conexao = self.conectar()
-         if conexao:
-            cursor = conexao.cursor()
-            cursor.execute("""
-                UPDATE Pendencias
-                SET StatusPendecia = %s,
-                TipoPendencia = %s 
-                WHERE Matricula = %s
-            """,(PessoaAutorizada, AssinaturaCooperado,IdPendencia))
-            conexao.commit()
-            conexao.close()
+        def atualizar_pendencia(self, IdPendencia, PessoaAutorizada, AssinaturaCooperado):
+            conexao = self.conectar()
+
+            if conexao:
+              try:
+                cursor = conexao.cursor()
+                cursor.execute("""
+                  UPDATE Pendencias
+                  SET StatusPendencia = %s,
+                      TipoPendencia = %s
+                  WHERE Matricula = %s
+                  """, (PessoaAutorizada, AssinaturaCooperado, IdPendencia))
+
+                conexao.commit()  # ✅ commit vem antes do close
+                print("Pendência atualizada com sucesso!")
+
+              except Error as e:
+                print(f"Erro ao atualizar pendência: {e}")
+
+              finally:
+                if conexao.is_connected():
+                  conexao.close()
