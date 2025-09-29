@@ -113,6 +113,7 @@ class GerenciadorCooperados:
           if resultado:
             cooperados = [
                 {
+                    "IdPedencias": row["IdPedencias"],
                     "Matricula": row["Matricula"],
                     "nome": row["nome"],
                     "TipoPendencia": row["TipoPendencia"],
