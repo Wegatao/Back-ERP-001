@@ -137,7 +137,6 @@ class GerenciadorCooperados:
        # Atualiza dados de um cooperado
        def atualizar_pendencia(self, IdPendencia, PessoaAutorizada, AssinaturaCooperado):
             conexao = self.conectar()
-
             if conexao:
               try:
                 cursor = conexao.cursor()
