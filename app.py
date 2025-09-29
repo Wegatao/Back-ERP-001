@@ -37,7 +37,7 @@ def buscar():
 
     cooperados = [
      {
-        "idPendencia": row["IdPedencias"],
+        "IdPedencias": row["IdPedencias"],
         "id": row["Matricula"],
         "nome": row["nome"],
         "pendencias": row["TipoPendencia"],     # renomeado
@@ -53,14 +53,16 @@ def buscar():
 
 @app.route("/atualizar", methods=["PUT"])
 def atualizar():
-    dados = request.get_json()
-    matricula = dados.get("id")  # Matricula usada como ID
-    status = dados.get("status")
+    dados = request.get_json();
+    IdPendencia = dados.get("IdPedencias");# Matricula usada como ID
+    PessoaAutorizada = dados.get("PessoaAutorizada");
+    AssinaturaCooperado = dados.get("AssinaturaCooperado");
 
-    if not matricula or not status:
+    if not IdPendencia or not PessoaAutorizada or not AssinaturaCooperado :
         return jsonify({"sucesso": False, "mensagem": "Campos obrigatórios não informados."})
 
-    gerenciador.atualizar_pendencia(matricula, status)
+    gerenciador.atualizar_pendencia(IdPendencia, PessoaAutorizada, AssinaturaCooperado);
+    
     return jsonify({"sucesso": True, "mensagem": "Pendência atualizada com sucesso"})
 
 
