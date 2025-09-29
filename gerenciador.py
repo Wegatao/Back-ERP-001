@@ -135,14 +135,15 @@ class GerenciadorCooperados:
 
        
        # Atualiza dados de um cooperado
-       def atualizar_pendencia(self, matricula, status):
+       def atualizar_pendencia(self, IdPendencia, PessoaAutorizada, AssinaturaCooperado):
          conexao = self.conectar()
          if conexao:
             cursor = conexao.cursor()
             cursor.execute("""
                 UPDATE Pendencias
-                SET StatusPendecia = %s
+                SET StatusPendecia = %s,
+                TipoPendencia = %s 
                 WHERE Matricula = %s
-            """, (status, matricula))
+            """,(PessoaAutorizada, AssinaturaCooperado,IdPendencia))
             conexao.commit()
             conexao.close()
