@@ -58,7 +58,7 @@ def atualizar():
     PessoaAutorizada = dados.get("PessoaAutorizada");
     AssinaturaCooperado = dados.get("AssinaturaCooperado");
 
-    if not IdPendencia or not PessoaAutorizada or not AssinaturaCooperado :
+    if not PessoaAutorizada or not AssinaturaCooperado :
         return jsonify({"sucesso": False, "mensagem": "Campos obrigatórios não informados."})
 
     gerenciador.atualizar_pendencia(IdPendencia, PessoaAutorizada, AssinaturaCooperado);
