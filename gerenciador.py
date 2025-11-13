@@ -107,7 +107,7 @@ class GerenciadorCooperados:
               pe.Descricao  AS Descricao
               FROM PSS p
               INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
-              WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
+              WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome.lower()}%",))
           
           resultado = cursor.fetchall()
 
