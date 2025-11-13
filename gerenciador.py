@@ -92,7 +92,7 @@ class GerenciadorCooperados:
         conexao = self.conectar()
 
         if not conexao:
-         return '''Não foi possível conectar ao banco de dados.'''
+         return cooperados
 
         try:
           cursor = conexao.cursor(dictionary=True)
