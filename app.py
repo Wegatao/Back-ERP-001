@@ -33,26 +33,31 @@ def cadastrarPendencia():
 def buscar():
     dados = request.get_json(silent=True)
     print(f"Dados recebidos para busca: {dados}")  # ✅ Log dos dados recebidos
-    nome = dados.get("nome")
+
+    if dados is None:
+        return jsonify({"sucesso": False, "mensagem": "JSON inválido ou não enviado."}), 400
+    
+    nome = dados.get("nome", "").strip()
+    
     if not nome:
-        return jsonify({"cooperados": 'erro: nome não fornecido'}), 400
+        return jsonify({"sucesso": False, "mensagem": "nome não fornecido."}), 400
       
     print(f"Nome recebido para busca: {nome}")  # ✅ Log do nome recebido
     resultado = gerenciador.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
 
     cooperados = [
-     {
-        "IdPedencias": resultado["IdPedencias"],
-        "id": resultado["Matricula"],
+      {
+        "IdPedencias": row["IdPedencias"],
+        "id": row["Matricula"],
         "nome": row["nome"],
-        "TipoPendencia": row["TipoPendencia"],     # renomeado
-        "StatusPendecia": row["StatusPendecia"],
-        "observacao": row["Descricao"],         # renomeado
-        "data_emissao": row["Data"]             # renomeado
-     }
+        "pendencias": row["TipoPendencia"],       
+        "StatusPedencia": row["StatusPendecia"],  
+        "observacao": row["Descricao"],
+        "data_emissao": row["Data"],
+      }
         for row in resultado
-    ]
-    return jsonify({"cooperados": cooperados})
+     ]
+    return jsonify({"cooperados": cooperados}), 200
 
 
 
