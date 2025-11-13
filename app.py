@@ -40,8 +40,8 @@ def buscar():
         "IdPedencias": row["IdPedencias"],
         "id": row["Matricula"],
         "nome": row["nome"],
-        "pendencias": row["TipoPendencia"],     # renomeado
-        "StatusPedencia": row["StatusPendecia"],
+        "TipoPendencia": row["TipoPendencia"],     # renomeado
+        "StatusPendecia": row["StatusPendecia"],
         "observacao": row["Descricao"],         # renomeado
         "data_emissao": row["Data"]             # renomeado
      }
@@ -79,4 +79,5 @@ def deletar():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
