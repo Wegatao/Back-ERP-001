@@ -37,13 +37,14 @@ def buscar():
     if dados is None:
         return jsonify({"sucesso": False, "mensagem": "JSON inválido ou não enviado."}), 400
     
-    nome = dados.get("nome", "").strip()
+    nome = dados.get("nome").strip()
     
     if not nome:
         return jsonify({"sucesso": False, "mensagem": "nome não fornecido."}), 400
       
     print(f"Nome recebido para busca: {nome}")  # ✅ Log do nome recebido
     resultado = gerenciador.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
+    return jsonify({"sucesso": True, "mensagem": "Busca realizada com sucesso", "dados": resultado}), 200
 
     cooperados = [
       {
