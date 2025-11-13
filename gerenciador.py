@@ -110,7 +110,7 @@ class GerenciadorCooperados:
               WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
           
           resultado = cursor.fetchall()
-          print(resultado)
+          print(resultado[0])
 
           if resultado:
             cooperados = [
