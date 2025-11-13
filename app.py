@@ -31,13 +31,13 @@ def cadastrarPendencia():
 
 @app.route("/buscar", methods=["POST"])
 def buscar():
-    dados = request.get_json(silent=True)
+    dados = request.get_json()
     print(f"Dados recebidos para busca: {dados}")  # ✅ Log dos dados recebidos
 
     if dados is None:
         return jsonify({"sucesso": False, "mensagem": "JSON inválido ou não enviado."}), 400
     
-    nome = dados.get("nome").strip()
+    nome = dados.get('nome').strip()
     
     if not nome:
         return jsonify({"sucesso": False, "mensagem": "nome não fornecido."}), 400
