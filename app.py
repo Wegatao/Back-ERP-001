@@ -44,8 +44,7 @@ def buscar():
       
     print(f"Nome recebido para busca: {nome}")  # ✅ Log do nome recebido
     resultado = gerenciador.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
-    return jsonify({"sucesso": True, "mensagem": "Busca realizada com sucesso", "dados": resultado}), 200
-
+   
     cooperados = [
       {
         "IdPedencias": row["IdPedencias"],
