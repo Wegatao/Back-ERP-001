@@ -31,16 +31,19 @@ def cadastrarPendencia():
 
 @app.route("/buscar", methods=["POST"])
 def buscar():
-    dados = request.get_json()
-    print(dados)
-    nome = dados.get("nome", "")  # ✅ Pega apenas o campo "nome" do dicionário
+    dados = request.get_json(silent=True)
+    print(f"Dados recebidos para busca: {dados}")  # ✅ Log dos dados recebidos
+    nome = dados.get("nome")
+    if not nome:
+        return jsonify({"cooperados": 'erro: nome não fornecido'}), 400
+      
     print(f"Nome recebido para busca: {nome}")  # ✅ Log do nome recebido
     resultado = gerenciador.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
 
     cooperados = [
      {
-        "IdPedencias": row["IdPedencias"],
-        "id": row["Matricula"],
+        "IdPedencias": resultado["IdPedencias"],
+        "id": resultado["Matricula"],
         "nome": row["nome"],
         "TipoPendencia": row["TipoPendencia"],     # renomeado
         "StatusPendecia": row["StatusPendecia"],
