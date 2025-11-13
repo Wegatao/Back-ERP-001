@@ -98,13 +98,13 @@ class GerenciadorCooperados:
           cursor = conexao.cursor(dictionary=True)
           cursor.execute("""
               SELECT 
-              p.Matricula,
-              p.nome,
-              pe.IdPedencias,
-              pe.TipoPendencia,
-              pe.StatusPendecia,
-              pe.Data,
-              pe.Descricao
+              p.Matricula AS Matricula,
+              p.nome AS nome,
+              pe.IdPedencias  AS IdPedencias,
+              pe.TipoPendencia  AS TipoPendencia,
+              pe.StatusPendecia   AS StatusPendecia,
+              pe.Data   AS Data,
+              pe.Descricao  AS Descricao
               FROM PSS p
               INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
               WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
