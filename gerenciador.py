@@ -95,8 +95,7 @@ class GerenciadorCooperados:
          return cooperados
 
         try:
-          cursor = conexao.cursor(dictionary=True)
-          cursor.execute("""
+          sql = """
               SELECT 
               p.Matricula,
               p.nome,
@@ -107,11 +106,16 @@ class GerenciadorCooperados:
               pe.Descricao
               FROM PSS p
               INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
-              WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
+              WHERE LOWER(p.nome) LIKE CONCAT('%', %S, '%')"""
           
-          resultado = cursor.fetchall()
-          print(resultado[0])
 
+          #Criado cursor para retornar dicionário. E executado a variável sql com parametro nome.
+          cursor = conexao.cursor(dictionary=True)
+          cursor.execute(sql,(nome))  
+          resultado = cursor.fetchall()
+      
+
+        #Retorna os dados eonctrado na busca.
           if resultado:
             cooperados = [
                 {
@@ -127,11 +131,12 @@ class GerenciadorCooperados:
             ]
           else:
             print("Nenhum cooperado encontrado.")
-            
+        
+
         except Error as e:
           print(f"Erro ao buscar cooperados: {e}")
         finally:
-            if conexao.is_connected():  # ✅ garante que a conexão existe antes de fechar
+            if conexao.is_connected():  #garante que a conexão existe antes de fechar
               conexao.close()
         return cooperados
 
