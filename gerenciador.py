@@ -95,7 +95,10 @@ class GerenciadorCooperados:
          return cooperados
 
         try:
-          sql = """
+          
+          #Criado cursor para retornar dicionário. E executado a variável sql com parametro nome.
+          cursor = conexao.cursor(dictionary=True)
+          cursor.execute("""
               SELECT 
               p.Matricula,
               p.nome,
@@ -106,12 +109,9 @@ class GerenciadorCooperados:
               pe.Descricao
               FROM PSS p
               INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
-              WHERE LOWER(p.nome) LIKE CONCAT('%', %S, '%')"""
+              WHERE LOWER(p.nome) LIKE %s """,("%"+nome+"%"))  
           
 
-          #Criado cursor para retornar dicionário. E executado a variável sql com parametro nome.
-          cursor = conexao.cursor(dictionary=True)
-          cursor.execute(sql,(nome))  
           resultado = cursor.fetchall()
       
 
