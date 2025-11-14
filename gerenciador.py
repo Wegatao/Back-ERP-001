@@ -91,7 +91,9 @@ class GerenciadorCooperados:
         cooperados = []
         conexao = self.conectar()
 
-      
+        if not conexao:
+         return cooperados
+
         try:
           
           #Criado cursor para retornar dicionário. E executado a variável sql com parametro nome.
