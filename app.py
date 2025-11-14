@@ -10,7 +10,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-gerenciador = GerenciadorCooperados(CONFING)
+gg = GerenciadorCooperados(CONFING)
 
 @app.route("/", methods=["GET"])
 def home():
@@ -32,18 +32,18 @@ def cadastrarPendencia():
 @app.route("/buscar", methods=["POST"])
 def buscar():
     dados = request.get_json()
-    print(f"Dados recebidos para busca: {dados}")  # ✅ Log dos dados recebidos
-
+    print("DADOS RECEBIDOS:", dados, flush=True)
+    
     if dados is None:
         return jsonify({"sucesso": False, "mensagem": "JSON inválido ou não enviado."}), 400
-    
+
     nome = dados.get('nome').strip()
     
     if not nome:
         return jsonify({"sucesso": False, "mensagem": "nome não fornecido."}), 400
       
     print(f"Nome recebido para busca: {nome}")  # ✅ Log do nome recebido
-    resultado = gerenciador.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
+    resultado = gg.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
    
     cooperados = [
       {
@@ -71,7 +71,7 @@ def atualizar():
     if not PessoaAutorizada or not AssinaturaCooperado :
         return jsonify({"sucesso": False, "mensagem": "Campos obrigatórios não informados."})
 
-    gerenciador.atualizar_pendencia(IdPendencia, PessoaAutorizada, AssinaturaCooperado);
+    gg.atualizar_pendencia(IdPendencia, PessoaAutorizada, AssinaturaCooperado);
     
     return jsonify({"sucesso": True, "mensagem": "Pendência atualizada com sucesso"})
 
@@ -83,7 +83,7 @@ def deletar():
     matricula = dados.get("id")
     if not matricula:
         return jsonify({"sucesso": False, "mensagem": "Matricula não informada."})
-    gerenciador.deletar_pendencia(matricula) 
+    gg.deletar_pendencia(matricula) 
     return jsonify({"sucesso": True, "mensagem": "Pendência deletada com sucesso"})
 
 if __name__ == "__main__":
