@@ -38,14 +38,14 @@ def buscar():
         return jsonify({"sucesso": False, "mensagem": "JSON inválido ou não enviado."}), 400
 
     nome = dados.get('nome').strip()
-    print("DADOS RECEBIDOS:", nome, flush=True)
 
     if not nome:
         return jsonify({"sucesso": False, "mensagem": "nome não fornecido."}), 400
       
     print(f"Nome recebido para busca: {nome}")  # ✅ Log do nome recebido
     resultado = gg.buscar_cooperados(nome)  # ✅ Agora sim: passa apenas a string "nome"
-   
+    print("DADOS RECEBIDOS:", nome, flush=True)
+
     cooperados = [
       {
         "IdPedencias": row["IdPedencias"],
