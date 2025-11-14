@@ -38,7 +38,8 @@ def buscar():
         return jsonify({"sucesso": False, "mensagem": "JSON inválido ou não enviado."}), 400
 
     nome = dados.get('nome').strip()
-    
+    print("DADOS RECEBIDOS:", nome, flush=True)
+
     if not nome:
         return jsonify({"sucesso": False, "mensagem": "nome não fornecido."}), 400
       
