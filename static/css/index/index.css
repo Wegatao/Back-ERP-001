@@ -1,0 +1,276 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+li{
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+}
+a{
+    color: #6e6e6e;
+    text-decoration: none;
+    display: block;
+    transition: 300ms;
+}
+a:hover {
+    background-color: #004d40;
+    padding: 10px;
+    color: #eee;
+    border-radius: 5px;
+    border-radius: 4px;
+}
+
+    
+header{
+    width: 100%;
+    height: 11vh;
+    display: flex;
+    align-items: center;
+    color: #eee;
+    background-color: #004d40;
+}
+
+#header-container{
+    margin-left: 20px;
+    margin-top: 13px;
+    width: 96%;
+    height: 90%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+
+/*Seções principais das telas*/
+#section{
+    width: 100%;
+    height: 90vh;
+    background-color: #f4f4f9;
+    
+}
+
+#section-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#section-dashbord-menu{
+    background-color: rgb(255, 255, 255);
+    color: #414141;
+    height: 230px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    H3{
+        color: #004d40;
+    }
+}
+
+#section-dashbord-esquerdo{
+    width: 370px;
+    color: #4d4d4d;
+    background-color: #f4f4f9;
+    height:90vh;
+    top: 75px;
+    left: 0px;
+    padding: 20px;
+
+    H3{
+        color:  #004d40;
+    }
+}
+
+
+#section-dashbord-categorias{
+    background-color: rgb(253, 253, 253);
+    color: #414141;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: 230px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    
+}
+
+
+/*Secão de edição do lado direito do sistema.*/
+#section-dashbord-direita{
+    width: 80%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f9;
+    color: rgb(0, 0, 0);
+}
+
+#section-painel{
+    width: 95%;
+    background-color: #ffffff;
+    color: #5a5a5a;
+    height: 90%;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#section-painel-container{
+    width: 100%;
+    height: 90%;
+   
+}
+
+#section-container-painel-header{
+
+    display: flex;
+    justify-content:space-between;
+    H2{
+        color: #004d40;
+        
+    }
+}
+
+#section-container-painel-header button
+{
+    border: none;
+    padding: 10px;
+    background-color: #004d40;
+    color: #fff;
+    border-radius: 5px;
+    transition: 300ms;
+
+}
+#section-container-painel-header button:hover
+{
+    
+    background-color: #004d40;
+    color: #ffffff;
+  
+
+} 
+
+#form-buscar{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    input{
+        width: 45%;
+        margin-top: 10px;
+        outline-color: rgb(62, 62, 248);
+        padding: 5px;
+        list-style: none;
+    }
+    
+}
+
+#form-buscar select{
+    width: 30%;
+    margin-top: 10px;
+    margin-left: 10px;
+    outline: 0px;
+    
+} 
+
+#Carregamento{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #a8a8a82f;
+    z-index: 999;
+    display: none;
+ 
+}
+
+#Carregamento h3
+{
+    position: absolute;
+    margin-left: 45%;
+    margin-right: 75%;
+    margin-top: 20%;
+}
+
+
+#section-painel-container-painel
+{
+    position: relative;
+    width: 100%;
+    height: 97%;
+    margin-top: 10px;
+
+}
+
+
+#section-painel-container-painel-resultados
+{
+    width: 100%;
+    margin-top: 25px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+
+    border-radius: 10px;
+    border: 1px solid #c9bef5;
+}
+
+#section-painel-container-painel-resultados-titulo
+{
+    display: flex;
+    justify-content: space-between;
+}
+#section-painel-container-painel-resultados-Mensagem
+{
+    
+    margin-top: 5px;
+}
+#section-painel-container-painel-resultados-status
+{
+    
+    display: flex;
+    justify-content: flex-start;
+    li{
+       margin-right: 10px;
+       margin-top: 10px;
+    }
+}
+
+
+#tabela-cooperados {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#tabela-cooperados th, #tabela-cooperados tr {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+#tabela-cooperados th {
+    background-color: #f4f4f9;
+    color: #004d40;
+    font-weight: 500;
+}
+
+#tabela-cooperados tbody tr:hover {
+    background-color: #f9f9f9;
+    
+}
+.Mais-btn {
+    padding: 10px 20px;
+    background-color: blue;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.Mais-btn:hover {
+    background-color: #000b72;
+}

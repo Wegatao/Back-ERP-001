@@ -1,0 +1,153 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Checklist Profissional</title>
+    <link rel="stylesheet" href="/static/css/Teste.css">
+    <script type="importmap">
+    {
+        "imports": {
+        }
+    }
+    </script>
+</head>
+<body>
+    <header class="top-nav">
+        <h1>Sistema de Checklist</h1>
+        <!-- Add navigation links here if needed -->
+    </header>
+
+    <main class="container">
+        <aside class="dashboard">
+            <h2>Dashboard</h2>
+            <div class="dashboard-card">
+                <h3>Checklists Concluídos</h3>
+                <p class="dashboard-stat">15</p> 
+            </div>
+            <div class="dashboard-card">
+                <h3>Checklists Pendentes</h3>
+                <p class="dashboard-stat">4</p> 
+            </div>
+            <div class="dashboard-card">
+                <h3>Itens Verificados (Total)</h3>
+                <p class="dashboard-stat">128</p> 
+            </div>
+             <!-- Add more dashboard elements like charts or lists placeholders -->
+        </aside>
+
+        <section class="checklist-section">
+            <h2>Preencher Checklist</h2>
+
+            <form id="checklist-form">
+
+                <div class="form-group">
+                    <label for="checklist-title">Título do Checklist (Opcional):</label>
+                    <input type="text" id="checklist-title" name="checklist-title" placeholder="Ex: Verificação de Segurança Diária - Turno 1">
+                </div>
+
+                <div class="form-group inline-datetime">
+                     <div class="form-group">
+                        <label for="checklist-date">Data:</label>
+                        <input type="date" id="checklist-date" name="checklist-date" required>
+                    </div>
+                     <div class="form-group">
+                        <label for="checklist-time">Horário:</label>
+                        <input type="time" id="checklist-time" name="checklist-time" required>
+                    </div>
+                </div>
+
+                <!-- New Day of the Week Selection -->
+                <div class="form-group">
+                    <label>Dia da Semana:</label>
+                    <div class="day-of-week-buttons" id="day-of-week-selector">
+                        <button type="button" class="day-button" data-day="segunda">Seg</button>
+                        <button type="button" class="day-button" data-day="terca">Ter</button>
+                        <button type="button" class="day-button" data-day="quarta">Qua</button>
+                        <button type="button" class="day-button" data-day="quinta">Qui</button>
+                        <button type="button" class="day-button" data-day="sexta">Sex</button>
+                        <button type="button" class="day-button" data-day="sabado">Sáb</button>
+                        <button type="button" class="day-button" data-day="domingo">Dom</button>
+                    </div>
+                    <input type="hidden" id="selected-day-of-week" name="selected-day-of-week">
+                </div>
+                <!-- End New Day of the Week Selection -->
+
+
+                <fieldset class="checklist-items-predefined">
+                     <legend>Itens de Verificação</legend>
+
+                     <!-- Predefined Item 1 -->
+                     <div class="checklist-item">
+                         <label class="item-description">1. Verificação de EPIs (Capacete, Óculos, Luvas)</label>
+                         <div class="item-options">
+                            <input type="radio" id="item1_ok" name="item_1_status" value="ok" required>
+                            <label for="item1_ok" class="status-label ok">OK</label>
+                            <input type="radio" id="item1_nok" name="item_1_status" value="nok">
+                            <label for="item1_nok" class="status-label nok">Não OK</label>
+                         </div>
+                     </div>
+
+                     <!-- Predefined Item 2 -->
+                     <div class="checklist-item">
+                         <label class="item-description">2. Inspeção Visual de Ferramentas Manuais</label>
+                           <!--Separação parte debaixo onde os valores são votados-->
+                         <div class="item-options">
+                            <input type="radio" id="item2_ok" name="item_2_status" value="ok" required>
+                            <label for="item2_ok" class="status-label ok">OK</label>
+                            
+                            <input type="radio" id="item2_nok" name="item_2_status" value="nok">
+                            <label for="item2_nok" class="status-label nok">Não OK</label>
+                         </div>
+                     </div>
+
+                      <!-- Predefined Item 3 -->
+                     <div class="checklist-item">
+                         <label class="item-description">3. Limpeza e Organização da Área de Trabalho</label>
+                            <!--Separação parte debaixo onde os valores são votados-->
+                         <div class="item-options">
+                            <input type="radio" id="item3_ok" name="item_3_status" value="ok" required>
+                            <label for="item3_ok" class="status-label ok">OK</label>
+
+                            <input type="radio" id="item3_nok" name="item_3_status" value="nok">
+                            <label for="item3_nok" class="status-label nok">Não OK</label>
+                         </div>
+                     </div>
+
+                      <!-- Predefined Item 4 -->
+                     <div class="checklist-item">
+                         <label class="item-description">4. Verificação da Sinalização de Segurança</label>
+                           <!--Separação parte debaixo onde os valores são votados-->
+                         <div class="item-options">
+                            <input type="radio" id="item4_ok" name="item_4_status" value="ok" required>
+                            <label for="item4_ok" class="status-label ok">OK</label>
+                            
+                            <input type="radio" id="item4_nok" name="item_4_status" value="nok">
+                            <label for="item4_nok" class="status-label nok">Não OK</label>
+                         </div>
+
+                     </div>
+
+                     <!-- Add more predefined items as needed -->
+
+                </fieldset>
+
+                <div class="form-group">
+                    <label for="checklist-observations">Observações Gerais:</label>
+                    <textarea id="checklist-observations" name="checklist-observations" rows="4" placeholder="Adicione aqui quaisquer observações relevantes sobre o checklist..."></textarea>
+                </div>
+
+
+                <div class="form-actions">
+                    <button type="submit">Arquivar Checklist</button>
+                </div>
+            </form>
+
+             <div id="archive-confirmation" class="confirmation-message" hidden>
+                Checklist arquivado com sucesso! (Simulação)
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

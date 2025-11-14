@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Pessoas</title>
+    <link rel="stylesheet" href="/static/css/cadastro/cadastroPedencia.css">
+    <script type="module" src="/static/js/Cadastro/cadastroPedencia.js"></script>
+</head>
+<body>
+  
+        <div class="sidebar">
+            <ul>
+              <li><a href="/Template/index.html">⇦ voltar</a></li>    
+            </ul>
+        </div>
+       <div id="Carregamento" >
+            <h3>Carregando...</h3>
+        </div>
+
+        <div class="main-content">
+            <main class="container">
+                <section class="form-section">
+                    <h2>Cadastrar Pendecia</h2>
+                    
+                    <form id="form-cooperado">
+                        <label for="Matricula">Matricula </label>
+                        <input type="number" id="Matricula" name="Matricula" placeholder="Digite a matricula aqui" required>
+                    
+                        <label for="Status">Status:</label>
+                        <select id="Status" name="Status" required>
+                            <option value="pendente">Pendente</option>
+                            <option value="Ok">Ok</option>
+                        </select>
+
+                        <label for="TipoPedencia">Tipo pedencia:</label>
+                        <select id="TipoPendencia" name="TipoPedencia" required>
+                            <option value="Assinatura">Assinatura</option>
+                            <option value="Documento">Documento</option>
+                            <option value="Assinatura do funcionario">Assinatura do funcionario</option>
+                        </select>                        
+                    
+                        <label for="data_emissao">Data de Emissão:</label>
+                        <input type="date" id="Data" name="data_emissao" required>
+                    
+                        <label for="observacao">Observação:</label>
+                        <textarea id="descricao" name="observacao" placeholder="Digite uma observação"></textarea>
+                    
+                        <button type="button" id="btn-cadastrar-Pedencia">Cadastrar</button>
+                    </form>
+             
+            </main>
+        </div>
+    
+    </section>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashbord</title>
+    <link rel="stylesheet" href="/static/css/index/index.css">
+    <link rel="stylesheet" href="/static/css/index/footer.css">
+    <link rel="stylesheet" href="/static/css/index/Exibi.css">
+    <script type="module" src="/static/js/Index/indet.js"></script>
+</head>
+<body>
+    
+     <div id="Contéudo-exibição">
+                    <div id="Contéudo-exbição-container">
+                        <h2>Nome do cooperado</h2><p>Data</p>
+                        <h3>Observação:</h3>
+                        <p>--</p>
+                        <h3>Status:</h3>
+                        <p>--</p>
+                    </div>
+              </div>
+    <header>
+
+        <div id="header-container">
+            <div id="header-container-logo">
+                <h2>Controle de pedencias</h2>
+            </div>
+
+            <div id="header-container-info">
+                <div id="header-container-info-relatorio">
+                  
+                </div>
+            </div>
+            <div id="header-container-conta">
+                <div>
+                   
+                </div>
+            </div>
+        </div>
+    
+    </header>
+
+    <section id="section">
+
+        <div id="section-container">    
+
+        <section id="section-dashbord-esquerdo">
+
+            <div id="section-dashbord-menu">
+                <h3>Menu</h3>
+                <li><a href="Html/cadastroPessoa.html">Cadastrar Pessoa</a></li>
+                 <li><a href="Html/cadastroPedencia.html">Cadastrar Pedencia</a></li>
+                <li><a href="Html/Atualizar_cad.html">Atualizar</a></li>
+            </div>
+            
+            <div id="section-dashbord-categorias">
+
+                <h3>Categorias</h3>
+                <div><li><a href="">Ass Pedentes</a></li> <div></div> </div>
+                <div><li><a href="">Produtos vencidos</a></li> <div></div> </div> 
+
+            </div>
+        </section>
+
+              <div id="Carregamento" >
+                        <h3>Carregando...</h3>
+              </div>
+             
+        <section id="section-dashbord-direita">
+
+            <div id="section-painel">
+
+              <div id="section-painel-container">
+                 <div id="section-container-painel-header">
+                   <H2>Meu painel</H2> 
+                   <button  href="Html/cadastro.html">Acrecentar pedencia</button>
+                 </div>
+
+              <form id="form-buscar">
+                 <label for="buscar-nome"></label>
+                 
+                 <input type="text" id="section-container-painel-busca-input" placeholder="Digite o nome do cooperado">
+
+                <select id="Filtro" name="section-container-painel-busca-Filtro" required>
+                    <option value="Recentes">Recentes</option>
+                </select>
+              </form>
+
+             <div id="section-painel-container-painel">                                           
+                    <table id="tabela-cooperados">
+
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Observação</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Mais</th>
+                    </tr>
+                </thead>
+                   <tbody>       
+                    <!-- Dados dinâmicos -->
+                   </tbody>
+                 </table>
+             </div>
+            </div>
+          </div>
+         </section>
+      </div>
+    </section>
+              <footer>2025 Todos os direitos estão reservados</footer>
+</body>
+</html>

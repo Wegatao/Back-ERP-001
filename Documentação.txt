@@ -1,0 +1,12 @@
+
+comandos git:
+
+git init ( para iniciar );
+git config --global user.email "willianwelber11@gmail.com" ( para colocar email)
+git config --global user.name  "Wegatao" (para colocar o nome)
+
+git add   (para adicionar o arquivo)
+git commit -m "teste" (para fazer o commit )
+
+git remote add origin  (adicionar link do repositorio )
+git push -u origin master (enviar os arquivos para o repositorio)

@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+from datetime import datetime
        
 # Classe que gerencia a conexão e operações com o banco de dados
 class GerenciadorCooperados:
@@ -25,24 +26,24 @@ class GerenciadorCooperados:
             cursor = conexao.cursor()
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS PSS (
-                    Matricula VARCHAR(20) PRIMARY KEY
-                    nome VARCHAR(20) NOT NULL 
+                    Matricula VARCHAR(20) PRIMARY KEY,
+                    nome VARCHAR(20) NOT NULL
                 )
             """)
             conexao.commit()
             conexao.close()
      
-       def criar_tabela_Pedencia(self):
+       def criar_tabela_Pendencia(self):
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
             cursor.execute("""
-                CREATE TABLE IF NOT EXISTS Pedencia (
+                CREATE TABLE IF NOT EXISTS Pendencias (
                     IdPedencias INT AUTO_INCREMENT PRIMARY KEY,
                     Matricula VARCHAR(20),
                     TipoPendencia VARCHAR(100),
                     StatusPendecia VARCHAR(20),
-                    Data DATE,
+                    Data date,
                     Descricao VARCHAR(100),
                     FOREIGN KEY(Matricula) REFERENCES PSS(Matricula)
                 )""")
@@ -60,35 +61,86 @@ class GerenciadorCooperados:
             conexao.commit()
             conexao.close()
            
-       def cadastrar_pendencia(self, Matricula, TipoPendencia, Status, Data, Descricao):
+       def cadastrar_pendencia(self, Matricula, TipoPendencia, StatusPendecia,Data, Descricao):
           conexao = self.conectar()
+          # Inverte a data para o formato YYYY-MM-DD
+          Data = self.inverterData(Data)
           if conexao:
-            cursor = conexao.cursor()
-            cursor.execute("INSERT INTO Pedencia (Matricula, TipoPendencia, Status, Data, Descricao)VALUES (%s, %s, %s, %s, %s)", 
-            (Matricula, TipoPendencia, Status, Data, Descricao)
-            )
-            conexao.commit()
-            conexao.close()
-                   
+            try:
+              cursor = conexao.cursor()
+              cursor.execute("""
+                INSERT INTO Pendencias (Matricula, TipoPendencia, StatusPendecia, Data, Descricao)
+                VALUES (%s, %s, %s, %s, %s)
+                """, (Matricula, TipoPendencia, StatusPendecia, Data, Descricao))
+              conexao.commit()
+              return {"sucesso": True, "mensagem": "Pendência cadastrada com sucesso"}
+            except Error as e:
+              print(f"Erro ao cadastrar pendência: {e}")
+              return {"sucesso": False, "mensagem": f"Erro: {e}"}
+            finally:
+              conexao.close()
+            
+       def inverterData(self,i):
+          data_obj = datetime.strptime(i, "%d/%m/%Y")  # Converte string em data
+          data_convertida = data_obj.strftime("%Y-%m-%d")  # Converte data em string no formato certo
+          return data_convertida
+          
+                                      
        # Busca cooperados pelo nome
        def buscar_cooperados(self, nome):
-        conexao = self.conectar()
         cooperados = []
-        if conexao:
-            cursor = conexao.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM cooperados WHERE nome LIKE %s", (f"%{nome}%",))
-            cooperados = cursor.fetchall()
-            conexao.close()
+        conexao = self.conectar()
+
+        if not conexao:
+         return cooperados
+
+        try:
+          cursor = conexao.cursor(dictionary=True)
+          cursor.execute("""
+              SELECT 
+              p.Matricula,
+              p.nome,
+              pe.TipoPendencia,
+              pe.StatusPendecia,
+              pe.Data,
+              pe.Descricao
+              FROM PSS p
+              INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
+              WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
+          
+          resultado = cursor.fetchall()
+          if resultado:
+            cooperados = [
+                {
+                    "Matricula": row["Matricula"],
+                    "nome": row["nome"],
+                    "TipoPendencia": row["TipoPendencia"],
+                    "StatusPendecia": row["StatusPendecia"],
+                    "Data": row["Data"],
+                    "Descricao": row["Descricao"]
+                }
+                for row in resultado
+            ]
+          else:
+            print("Nenhum cooperado encontrado.")
+            
+        except Error as e:
+          print(f"Erro ao buscar cooperados: {e}")
+        finally:
+            if conexao.is_connected():  # ✅ garante que a conexão existe antes de fechar
+              conexao.close()
         return cooperados
+
        
        # Atualiza dados de um cooperado
-       def atualizar_cooperado(self, id_cooperado, pendencias, data_emissao, observacao):
-        conexao = self.conectar()
-        if conexao:
+       def atualizar_pendencia(self, matricula, status):
+         conexao = self.conectar()
+         if conexao:
             cursor = conexao.cursor()
-            cursor.execute(
-                "UPDATE cooperados SET pendencias = %s, data_emissao = %s, observacao = %s WHERE id = %s",
-                (pendencias, data_emissao, observacao, id_cooperado)
-            )
+            cursor.execute("""
+                UPDATE Pendencias
+                SET StatusPendecia = %s
+                WHERE Matricula = %s
+            """, (status, matricula))
             conexao.commit()
             conexao.close()
