@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashbord</title>
+    <link rel="stylesheet" href="/static/css/index/index.css">
+    <link rel="stylesheet" href="/static/css/index/footer.css">
+    <link rel="stylesheet" href="/static/css/index/Exibi.css">
+    <script type="module" src="/static/js/Index/indet.js"></script>
+</head>
+<body>
+    
+     <div id="Contéudo-exibição">
+                    <div id="Contéudo-exbição-container">
+                        <h2>Nome do cooperado</h2><p>Data</p>
+                        <h3>Observação:</h3>
+                        <p>--</p>
+                        <h3>Pessoa autorizada:</h3>
+                        <p>--</p>
+                        <h3>Assinatura do Cooperado:</h3>
+                        <p>--</p>
+                        
+                    </div>
+              </div>
+    <section id="section">
+
+        <div id="section-container">    
+
+        <section id="section-dashbord-esquerdo">
+            <div id="header-container-logo">
+                   <h2>Controle de pedencias</h2> 
+            </div>
+            <div id="section-dashbord-menu">
+                <h3>Menu</h3>
+                <li><a href="Template/Html/cadastroPessoa.html">Cadastrar Pessoa</a></li>
+                 <li><a href="Template/Html/cadastroPedencia.html">Cadastrar Pedencia</a></li>
+                <li><a href="Template/Html/Atualizar_cad.html">Atualizar</a></li>
+            </div>
+        </section>
+        
+        <section id="section-dashbord-esquerdo-mobile">
+            <div id="section-dashbord-menu-mobile">
+                <li><a href="Html/cadastroPessoa.html">Cadastrar Pessoa</a></li>
+                <li><a href="Html/Atualizar_cad.html">Atualizar</a></li>
+                <li><a href="Html/cadastroPedencia.html">Cadastrar Pedencia</a></li>
+                
+            </div>
+        </section>
+
+              <div id="Carregamento" >
+                        <h3>Carregando...</h3>
+              </div>
+             
+        <section id="section-dashbord-direita">
+
+            <div id="section-painel">
+
+              <div id="section-painel-container">
+                 <div id="section-container-painel-header">
+                   <h3>Buscar pendencia</h3> 
+                   <button id="Realiza_busca">submit</button>
+                 </div>
+
+              <form id="form-buscar">
+                 <label for="buscar-nome"></label>
+                 <input type="text" id="section-container-painel-busca-input" placeholder="Digite o nome do cooperado">
+
+              </form>
+
+             <div id="section-painel-container-painel">                                           
+                    <table id="tabela-cooperados">
+
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Observação</th>
+                        <th>Vencimento</th>
+                        <th>Status</th>
+                        <th>Mais</th>
+                    </tr>
+                </thead>
+                   <tbody>       
+                    <!-- Dados dinâmicos -->
+                   </tbody>
+                 </table>
+             </div>
+            </div>
+          </div>
+                <footer>2025 Todos os direitos estão reservados</footer>
+
+         </section>
+      </div>
+    </section>
+              
+</body>
+</html>

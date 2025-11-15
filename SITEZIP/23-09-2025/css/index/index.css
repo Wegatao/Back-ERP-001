@@ -1,0 +1,363 @@
+/* ====================
+   RESET
+==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+li {
+    list-style: none;
+    margin: 5px 0;
+}
+
+a {
+    color: #6e6e6e;
+    text-decoration: none;
+    display: block;
+    transition: 300ms;
+}
+
+a:hover {
+    background-color: #004d40;
+    padding: 10px;
+    color: #eee;
+    border-radius: 5px;
+}
+
+/* ====================
+   HEADER
+==================== */
+header {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    color: #eee;
+    background-color: #004d40;
+}
+#header-container {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#header-container-logo {
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+} 
+#header-container-logo div {
+    position: absolute;
+    top: 3px;
+} 
+
+/* ====================
+   SEÇÕES
+==================== */
+#section {
+    width: 100%;
+    height: 90vh;
+    background-color: #f4f4f9;
+}
+
+#section-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+/* Menu lateral */
+#section-dashbord-esquerdo {
+    width: 370px;
+    color: #4d4d4d;
+    background-color: #f4f4f9;
+    height: 90vh;
+    padding: 20px;
+}
+
+#section-dashbord-menu,
+#section-dashbord-categorias {
+    background-color: #fff;
+    color: #414141;
+    height: 230px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#section-dashbord-menu h3,
+#section-dashbord-categorias h3 {
+    color: #004d40;
+}
+
+/* Painel à direita */
+#section-dashbord-direita {
+    width: 80%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f9;
+}
+
+#section-painel {
+    width: 95%;
+    background-color: #ffffff;
+    color: #5a5a5a;
+    height: 90%;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+#section-dashbord-esquerdo-mobile{
+       display: none;
+       
+    }
+#section-container-painel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#section-container-painel-header h3 {
+    color: #004d40;
+}
+
+#section-container-painel-header button {
+    border: none;
+    padding: 10px;
+    background-color: #004d40;
+    color: #fff;
+    border-radius: 5px;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+#section-container-painel-header button:hover {
+    background-color: #013b31;
+}
+
+/* Buscar */
+#form-buscar {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#form-buscar input {
+    width: 45%;
+    padding: 8px;
+    outline-color: rgb(62, 62, 248);
+}
+
+#form-buscar select {
+    width: 30%;
+    padding: 8px;
+}
+
+/* Loader */
+#Carregamento {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #a8a8a82f;
+    z-index: 999;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
+#Carregamento h3 {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    color: #004d40;
+}
+
+/* Modal */
+#Contéudo-exibição {
+    position: fixed;
+    background-color: #cecece79;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
+#Contéudo-exbição-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+/* ====================
+   TABELA
+==================== */
+#tabela-cooperados {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#tabela-cooperados th,
+#tabela-cooperados td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+#tabela-cooperados th {
+    background-color: #f4f4f9;
+    color: #004d40;
+    font-weight: 500;
+}
+
+#tabela-cooperados tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* ====================
+   BOTÕES
+==================== */
+.Mais-btn {
+    padding: 10px 20px;
+    background-color: #004d40;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.Mais-btn:hover {
+    background-color: #013b31;
+}
+
+/* ====================
+   RESPONSIVIDADE
+==================== */
+@media (max-width: 768px) {
+
+    header{
+        height: 5vh;
+    }
+    #header-container-logo{
+    
+       width: 100%;
+       height: auto;
+       display: flex;
+       justify-content: left;
+    } 
+    #header-container-logo div { 
+        position: absolute;
+        margin-top: 0;
+    }#header-container-logo p{
+        margin-left: 20px;
+        position: absolute;
+    }
+    
+    #section-container {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       height: 100%;
+        
+    }
+    #section-dashbord-esquerdo-mobile{
+        display: block;
+        position: absolute;
+        bottom:5px;
+        width: 97%;  
+    }
+
+    #section-dashbord-menu-mobile{
+        display: flex;
+        justify-content: space-between;
+    }
+    #section-dashbord-menu-mobile li{
+       font-size: 13px;
+       background-color: #004d40; 
+       padding: 10px; 
+       border-radius: 5px;
+    } #section-dashbord-menu-mobile li a{
+       color: #fffbf0;
+    } #section-dashbord-menu-mobile li a:hover{
+       color: #fffbf0;
+       padding: 0;
+       background-color: #013b31;
+    }
+
+
+    #section-dashbord-esquerdo {
+      display: none;
+    }
+
+    #section-dashbord-direita {
+        width: 90%;
+        height: auto;
+        padding: 10px;
+    }
+
+    #form-buscar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #form-buscar input,
+    #form-buscar select {
+        width: 90%;
+    }
+
+    /* Tabela como cards */
+    #tabela-cooperados {
+        border: 0;
+    }
+
+    #tabela-cooperados thead {
+        display: none;
+    }
+
+    #tabela-cooperados tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    #tabela-cooperados td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border: none;
+    }
+
+    #tabela-cooperados td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #004d40;
+    }
+    footer{
+        display: none;
+    }
+}

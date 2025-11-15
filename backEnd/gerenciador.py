@@ -11,7 +11,14 @@ class GerenciadorCooperados:
        # Conecta ao banco de dados
        def conectar(self):
          try:
-            conexao = mysql.connector.connect(**self.config)
+            print(
+               self.config("host"),
+               self.config("user"),
+               self.config("password"),
+               self.config("database"),
+               flush=True
+            )
+            conexao = mysql.connector.connect(self.config)
             if conexao.is_connected():
                 print("Conexão bem-sucedida com o banco de dados.")
                 return conexao
@@ -95,23 +102,31 @@ class GerenciadorCooperados:
          return cooperados
 
         try:
+          
+          #Criado cursor para retornar dicionário. E executado a variável sql com parametro nome.
           cursor = conexao.cursor(dictionary=True)
           cursor.execute("""
               SELECT 
               p.Matricula,
               p.nome,
+              pe.IdPedencias,
               pe.TipoPendencia,
               pe.StatusPendecia,
               pe.Data,
               pe.Descricao
               FROM PSS p
               INNER JOIN Pendencias pe ON p.Matricula = pe.Matricula
-              WHERE LOWER(p.nome) LIKE %s  """, (f"%{nome}%",))
+              WHERE LOWER(p.nome) LIKE %s """,("%"+nome+"%"))  
           
+
           resultado = cursor.fetchall()
+      
+
+        #Retorna os dados eonctrado na busca.
           if resultado:
             cooperados = [
                 {
+                    "IdPedencias": row["IdPedencias"],
                     "Matricula": row["Matricula"],
                     "nome": row["nome"],
                     "TipoPendencia": row["TipoPendencia"],
@@ -123,24 +138,33 @@ class GerenciadorCooperados:
             ]
           else:
             print("Nenhum cooperado encontrado.")
-            
+        
+
         except Error as e:
           print(f"Erro ao buscar cooperados: {e}")
         finally:
-            if conexao.is_connected():  # ✅ garante que a conexão existe antes de fechar
+            if conexao.is_connected():  #garante que a conexão existe antes de fechar
               conexao.close()
         return cooperados
 
-       
        # Atualiza dados de um cooperado
-       def atualizar_pendencia(self, matricula, status):
-         conexao = self.conectar()
-         if conexao:
-            cursor = conexao.cursor()
-            cursor.execute("""
-                UPDATE Pendencias
-                SET StatusPendecia = %s
-                WHERE Matricula = %s
-            """, (status, matricula))
-            conexao.commit()
-            conexao.close()
+       def atualizar_pendencia(self, IdPendencia, PessoaAutorizada, AssinaturaCooperado):
+            conexao = self.conectar()
+            if conexao:
+              try:
+                cursor = conexao.cursor()
+                cursor.execute("""
+                  UPDATE Pendencias 
+                   SET StatusPendecia = %s, TipoPendencia = %s
+                   WHERE IdPedencias = %s           
+                  """, (PessoaAutorizada, AssinaturaCooperado, IdPendencia))
+
+                conexao.commit()  # ✅ commit vem antes do close
+                print("Pendência atualizada com sucesso!")
+
+              except Error as e:
+                print(f"Erro ao atualizar pendência: {e}")
+
+              finally:
+                if conexao.is_connected():
+                  conexao.close()

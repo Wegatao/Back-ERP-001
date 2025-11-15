@@ -7,23 +7,30 @@ class IndexAPI {
         this.FormularioDaPagina = document.getElementById("form-buscar");
         this.carregamento = document.getElementById("Carregamento");
         this.tabela = document.getElementById("tabela-cooperados").querySelector("tbody");
-
+        this.Botão = document.getElementById("Realiza_busca");
         this.FormularioDaPagina.addEventListener("submit", (event) => {
             event.preventDefault(); // Impede o envio do formulário
             this.BuscaCooperados();
         });
+        this.Botão.addEventListener("click", (event)=>{
+            event.preventDefault();
+            this.BuscaCooperados();
+        })
     }
  
       BuscaCooperados() {
         const Form = new Formulario();
+        console.log(Form.Nome);
         
         if (!Msg.VerificaCampos(Form.Nome)) return;
         this.carregamento.style.display = "block";
 
+        let Nome = Form.Nome;
+        console.log(Nome);
         fetch("https://backend-do-erp-001.onrender.com/buscar", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 'nome': Form.Nome })
+            body: JSON.stringify({ nome: Nome })
 
         })
        
@@ -41,10 +48,14 @@ class IndexAPI {
             this.tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados
             console.log('ok')
             console.log(data);
-            console.log(data.cooperados.data_emissao);
-
+            console.log(data.cooperados.Matricula);
+            console.log(data.cooperados.length);
+        
             this.carregamento.style.display = "none"
-
+            if (!data.cooperados || !Array.isArray(data.cooperados)) {
+            console.error("Resposta inesperada:", data);
+            return;
+}
             if (data.cooperados && data.cooperados.length === 0) {
                 // Alteração: Dinamicamente define o colspan para alinhar com a tabela
                 const colunas = this.tabela.parentElement.querySelectorAll("th").length;
@@ -56,25 +67,39 @@ class IndexAPI {
                 // Verifica se o campo 'pendencias' existe e é um número   
                 
                 const linha = document.createElement("tr");
+                const observacao = this.TruncarTexto(coop.observacao);
+                const FormaTaçãoData = this.FormatarData(coop.data_emissao);
+
                 linha.innerHTML = `
                     <td>${coop.nome}</td>
-                    <td>${coop.pendencias}</td>
-                     <td>${coop.data_emissao}</td>
-                    <td>${coop.status}</td>
+                    <td>${observacao}</td>
+                     <td>${FormaTaçãoData}</td>
+                    <td>${coop.StatusPedencia}</td>
                 <td>
                     <button class="Mais-btn"
                     data-id="${coop.id}"
                     data-nome="${coop.nome}"
-                    data-obes="${coop.observacao}"
-                    data-data="${coop.data_emissao}"
-                    data-pendencia="${coop.status}">
+                    data-observacao="${coop.observacao}"
+                    data-data="${FormaTaçãoData}"
+                    data-StatusPedencia="${coop.StatusPedencia}"
+                    data-Tipo="${coop.pendencias}">
                 +
                 </button>
             </td>
             `;
+             if(coop.StatusPedencia?.toUpperCase() === 'OK' && coop.pendencias?.toUpperCase() === 'OK'){
+                linha.querySelector('.Mais-btn').style.backgroundColor = 'blue';
+
+                //Nessa linha de codigo, eu modifiquei pra poder pegar a linha do codigo que tem esse elemenot, pra não dar erro.
+            } else {
+                 linha.querySelector('.Mais-btn').style.backgroundColor = 'red';
+                 
+            }
 
             this.tabela.appendChild(linha);
         });
+
+                this.AdicionarEventosMais();
         })
         .catch(error => {
                      // Trata erros
@@ -82,75 +107,54 @@ class IndexAPI {
         })
     }    
 
-
-//------ Método para exibir os cooperados na tabela
-
-     /*MostrarCooperados(cooperados) {
-        this.tabela.innerHTML = "";
-
-        if (!cooperados || cooperados.length === 0) {
-            const colunas = this.tabela.parentElement.querySelectorAll("th").length;
-            this.tabela.innerHTML = `<tr><td colspan="${colunas}">Nenhum cooperado encontrado.</td></tr>`;
-            return;
-        }
-
-        cooperados.forEach((coop) =>{
-            const linha = document.createElement("tr");
-
-            linha.innerHTML = `
-                <td>${coop.nome || coop.matricula}</td>
-                <td>${this.TruncarTexto(coop.TipoPedencia, 20)}</td>
-                <td>${coop.data_emissao}</td>
-                <td>${coop.StatusPendecia}</td>
-                <td>
-                    <button class="Mais-btn" 
-                        data-id="${coop.id}" 
-                        data-obes="${coop.observacao}"
-                        data-nome="${coop.nome}"
-                        data-data="${dataFormatada}"
-                        data-pendencia="${coop.pendencias}">
-                    +
-                </button>
-                </td>
-            `;
-
-            this.tabela.appendChild(linha);
-        });
-        this.AdicionarEventosMais();
-    }
-    
     AdicionarEventosMais() {
-        const botoes = document.querySelectorAll(".Mais-btn");
-        botoes.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const painel = document.querySelector("#Contéudo-exibição");
-                const pTags = painel.querySelectorAll("p");
 
-                pTags[0].textContent = btn.getAttribute("data-data");
-                pTags[1].textContent = btn.getAttribute("data-obes");
-                pTags[2].textContent = btn.getAttribute("data-pendencia");
+        const botoes = document.querySelectorAll(".Mais-btn");
+        const painel = document.querySelector("#Contéudo-exibição");
+
+        botoes.forEach((btn) => {
+
+            btn.addEventListener("click", () => {
+
+                const pTags_p = painel.querySelectorAll("p");
+                const pTags_H = painel.querySelector("h2")
+
+                pTags_H.textContent = btn.getAttribute("data-nome")
+                pTags_p[0].textContent = btn.getAttribute("data-data");
+                pTags_p[1].textContent = btn.getAttribute("data-observacao");
+                pTags_p[2].textContent = btn.getAttribute("data-StatusPedencia");
+                pTags_p[3].textContent = btn.getAttribute("data-Tipo");
                 painel.style.display = "block";
             });
-        });
-    }*/
+
+        painel.addEventListener('click', ()=>{
+                painel.style.display = "none";
+        })
+            
+        })};
+
+    FormatarData(dataEmissao) {
+
+        if (!dataEmissao) return "Data inválida";
+
+        const parte = dataEmissao.split('-');
+        const parteInvertida = parte.reverse();
+        const DataInvertida = parteInvertida.join('-');
+        console.log(DataInvertida);
+
+        return DataInvertida;
+        
+        
+     }
     
-    TruncarTexto(texto, max = 20) {
-        if (!texto) return "--";
+    TruncarTexto(texto, max = 10) {
+        if (!texto) 
+            return "--";
+        else
         return texto.length > max ? texto.substring(0, max) + "..." : texto;
     }
 
-    FormatarData(dataEmissao) {
-        if (!dataEmissao) return "Data inválida";
-
-        try {
-            const data = new Date(dataEmissao);
-            const dia = String(data.getDate()).padStart(2, "0");
-            const mes = String(data.getMonth() + 1).padStart(2, "0");
-            const ano = data.getFullYear();
-            return `${dia}/${mes}/${ano}`;
-        } catch (e) {
-            return "Data inválida";
-        }
-    }
+    
+    
 }
 new IndexAPI();
